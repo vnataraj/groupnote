@@ -20,6 +20,15 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int create_session=0x7f030001;
+        public static final int edit_note=0x7f030002;
+        public static final int find_session=0x7f030003;
+        public static final int joined_sessions=0x7f030004;
+        public static final int login=0x7f030005;
+        public static final int my_notes=0x7f030006;
+        public static final int notes_overview=0x7f030007;
+        public static final int settings=0x7f030008;
+        public static final int view_note=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
