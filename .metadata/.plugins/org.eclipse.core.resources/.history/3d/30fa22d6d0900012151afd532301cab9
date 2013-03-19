@@ -86,6 +86,6 @@
         android:layout_below="@+id/CheckBox01"
         android:layout_marginTop="41dp"
         android:textSize="35sp"
-        android:text="Create Session" />
+        android:text="Button" />
 
 </RelativeLayout>

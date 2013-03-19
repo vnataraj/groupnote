@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
-        android:text="Find a Session"
+        android:text="My Notes"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="45sp" />
 

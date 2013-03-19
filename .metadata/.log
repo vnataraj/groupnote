@@ -110,3 +110,6 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2013-03-19 15:40:32.763
 !MESSAGE Failed to load properties file for project 'cool'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-03-19 15:52:26.555
+!MESSAGE create_session.xml: Dimension "25" in attribute "textSize" is missing unit!

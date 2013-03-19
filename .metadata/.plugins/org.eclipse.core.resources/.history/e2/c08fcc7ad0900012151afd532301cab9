@@ -61,31 +61,10 @@
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/EditText01"
         android:layout_below="@+id/EditText01"
-        android:layout_marginTop="48dp"
-        android:text="   Use Passcode?"
-        android:textSize="35sp" />
-
-    <CheckBox
-        android:id="@+id/CheckBox01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox1"
-        android:layout_below="@+id/checkBox1"
-        android:layout_marginTop="34dp"
-        android:text="   Use Location?"
-        android:textSize="35sp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/CheckBox01"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="45dp"
+        android:layout_toLeftOf="@+id/EditText01"
         android:textSize="35sp"
-        android:text="Create Session" />
+        android:text="CheckBox" />
 
 </RelativeLayout>

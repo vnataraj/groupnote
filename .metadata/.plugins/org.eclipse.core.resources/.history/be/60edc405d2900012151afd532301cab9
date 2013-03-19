@@ -15,28 +15,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="45sp" />
 
-    <EditText
-        android:id="@+id/editText1"
+    <ListView
+        android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:text="filter..."
-        android:textSize="35sp"
-        android:inputType="textShortMessage" >
-
-        <requestFocus />
-    </EditText>
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1" >
-
+        android:layout_alignParentTop="true" >
     </ListView>
 
 </RelativeLayout>
