@@ -1,4 +1,3 @@
 INDEX VERSION 1.126+/Users/jimel/Dropbox/SCHOOL_FILES/CS307/GroupNote workspace/groupnote/.metadata/.plugins/org.eclipse.jdt.core
 2555511439.index
-3645381679.index
 1835597547.index
