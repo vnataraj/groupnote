@@ -3,21 +3,14 @@ newUser - Adds a new user to the database
   Params: username, password, password confirm (?)
   Returns: success (username not taken, valid input)
            error (username taken, invalid input)
-
-/*           
-changePassword - changes the password for a user
-  Params: username, old password, new password, new password confirm (?)
-  Returns: success (old password matches, new changed successfully)
-           error (old password mismatch, new passwords don't match)
-*/
           
-checkLogin - Logs the user in to the service?
+checkLogin - Logs the user in to the service? (Vip)
   Params: username, password
   Returns: token (username & password exist)
            error (username & password combo doesn't exist)
 
 
-SESSION OPERATIONS:
+SESSION OPERATIONS (Kyle):
 newSession - Creates a new session
   Params: Session Name, password (can be blank), owner
   Returns: success (owner+name unique)
@@ -31,13 +24,6 @@ joinSession - Registers a user for membership in a session
   Params: Session id, user id, password (optional)
   Returns: success (password matches or is not required)
            error (password does not match)
- 
-/* 
-leaveSession - Removes a user from a session
-  Params: user ID, session ID
-  Returns: Success (user was enrolled in session prior)
-           error (user was not enrolled...shouldn't really happen)
-*/
         
 getNotesForSession - Returns a list of note IDs and owner names for session
   Params: session number, user id
@@ -45,7 +31,19 @@ getNotesForSession - Returns a list of note IDs and owner names for session
            error: session does not exist (or user doesn't have access)
 
 
-NOTE OPERATIONS:
+NOTE OPERATIONS (Vip):
 newNote
 updateNote
 getNote
+
+FOR LATER:
+
+changePassword - changes the password for a user
+  Params: username, old password, new password, new password confirm (?)
+  Returns: success (old password matches, new changed successfully)
+           error (old password mismatch, new passwords don't match)
+           
+leaveSession - Removes a user from a session
+  Params: user ID, session ID
+  Returns: Success (user was enrolled in session prior)
+           error (user was not enrolled...shouldn't really happen)
