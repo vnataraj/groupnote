@@ -1,0 +1,30 @@
+package com.cs307.groupnote;
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import android.os.Bundle;
+import android.widget.ListView;
+import android.app.Activity;
+
+public class FindSession extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.find_session);
+        
+        
+     // Find the ListView resource.   
+        ListView mainListView = (ListView) findViewById( R.id.listView1 );  
+      
+        // Create and populate a List of planet names.  
+        String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",  
+                                          "Jupiter", "Saturn", "Uranus", "Neptune"};    
+        ArrayList<String> planetList = new ArrayList<String>();  
+        planetList.addAll( Arrays.asList(planets) );  
+        
+    }
+    
+}

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".CreateSession" >
 
     <TextView
         android:id="@+id/textView1"
@@ -85,7 +85,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/CheckBox01"
         android:layout_marginTop="41dp"
-        android:textSize="35sp"
-        android:text="Create Session" />
+        android:text="Create Session"
+        android:textSize="35sp" />
 
 </RelativeLayout>
