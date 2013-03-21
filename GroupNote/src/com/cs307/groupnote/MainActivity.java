@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 
 public class MainActivity extends TabActivity {
@@ -30,6 +31,9 @@ public class MainActivity extends TabActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
+        Intent prefsIntent = new Intent(getBaseContext(), Settings.class);
+        MenuItem preferences = menu.findItem(R.id.menu_settings);
+        preferences.setIntent(prefsIntent);
         return true;
     }
     
