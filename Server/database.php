@@ -12,4 +12,16 @@
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
     exit;
   }
+  
+//takes a user token as input and returns the user ID if the token exists
+//returns -1 if no token is found in the database
+function validate($user_token) {
+  $result = $mysqli->query("SELECT user_id FROM users WHERE token=$user_token");
+  $user_id_no = -1;
+  if($result) {
+    $row = $result->fetch_assoc();
+    $user_id_no = $row['user_id'];
+  }
+  return $user_id_no;
+}
 ?>
