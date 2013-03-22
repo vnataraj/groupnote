@@ -38,7 +38,7 @@ public class FindSession extends Activity {
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 // Perform action on click
-            	Intent i = new Intent(getBaseContext(), EditNote.class);
+            	Intent i = new Intent(getBaseContext(), ViewNote.class);
             	startActivity(i);
             }
         });

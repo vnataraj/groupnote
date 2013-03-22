@@ -19,7 +19,7 @@ public class CreateSession extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-            	Intent i = new Intent(getBaseContext(), NotesOverview.class);
+            	Intent i = new Intent(getBaseContext(), ViewNote.class);
             	startActivity(i);
             }
         });
