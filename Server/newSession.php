@@ -40,7 +40,6 @@ else {
     include 'error.php';
   }
 }
-
 //success! We should probably tell them
   
 ?>

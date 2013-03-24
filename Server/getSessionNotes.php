@@ -11,8 +11,6 @@ if($user_id==-1) {
   exit;
 }
 
-
-
 $result = $mysqli->query("SELECT note_id,username FROM notes JOIN users ON notes.owner=users.user_id WHERE session=$session_id");
 
 if($result) {
