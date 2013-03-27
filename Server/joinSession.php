@@ -5,17 +5,12 @@ Params: Session number, password
 Returns: success (owner+name unique)
          error (owner+name not unique)
            */
-include 'database.php';
+include 'getUser.php';
   
 $token = $_GET["token"];
-$session_id = $GET["session_id"];
+$user_id = getUserFromToken($token);
 
-$user_id = validate($token);
-if($user_id==-1) {
-  $error = "NOT_LOGGED_IN";
-  include 'error.php';
-  exit;
-}
+$session_id = $GET["session_id"];
 
 //query for session password
 $query = "SELECT passcode FROM sessions WHERE session_id=$session_id";
@@ -27,8 +22,7 @@ if($result) {
   //create the passcode hash, but we'll use plaintext for now
   if(row['passcode']!=NULL) {
     if($passcode!=$row['passcode']) {
-      $error = "INVALID_PASSWORD";
-      include 'error.php';
+      error_match("SESSION_INVALID_PASSWORD");
       exit;
     }
   }
@@ -37,8 +31,7 @@ if($result) {
   
   $result = $mysqli->query($query);
   if(!$result) {
-    $error = "MYSQL_ERROR";
-    include 'error.php';
+    error_match("UNKNOWN_ERROR");
     exit;
   }
 }

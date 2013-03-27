@@ -20,6 +20,10 @@ function error_match($error_code){
   {
     echo "User could not be enrolled in session. Try again?";
   }
+  else if (strcmp($error_code,"SESSION_INVALID_PASSWORD")==0)
+  {
+    echo "The password does not match what we have for the session. Try again!";
+  }
 	//add other error codes here as 'else if's...
 	else
 	{
