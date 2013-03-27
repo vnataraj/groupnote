@@ -1,16 +1,13 @@
 <?php
 
-include 'database.php';
+include 'getUser.php';
+  
+$token = $_GET["token"];
+$user_id = getUserFromToken($token);
 
 $session_id = intval($_GET["session_id"]); 
 
-$token = $_GET["token"];
-
-$user_id = validate($token);
-if($user_id==-1) {
-  exit;
-}
-
+//here we should check that a user is enrolled in the session
 $result = $mysqli->query("SELECT note_id,username FROM notes JOIN users ON notes.owner=users.user_id WHERE session=$session_id");
 
 if($result) {
@@ -20,6 +17,9 @@ if($result) {
     printf("$note_id,$username\n\n");
     // printf("%i %s %s\n",$note_id,$content,$owner);
   }
+}
+else {
+  error_match("UNKNOWN_ERROR");
 }
   
 ?>

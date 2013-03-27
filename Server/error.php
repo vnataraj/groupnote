@@ -12,6 +12,14 @@ function error_match($error_code){
 	{
 		echo "user was not able to be added to the table, please try again!";
 	}
+  else if (strcmp($error_code,"CREATE_SESSION_FAILURE")==0)
+  {
+    echo "session was not able to be created, please try again!";
+  }
+  else if (strcmp($error_code,"ENROLL_USER_FAILURE")==0)
+  {
+    echo "User could not be enrolled in session. Try again?";
+  }
 	//add other error codes here as 'else if's...
 	else
 	{

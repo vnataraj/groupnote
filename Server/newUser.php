@@ -1,17 +1,19 @@
 <?php
-
   include 'database.php';
+  include 'error.php';
   
-  $user_name = $_GET["user_name"];
+  $user_name = $_GET["username"];
   $password = $_GET["password"];
-  
-  $token = md5($user_name+$password+"666");
+  $tokenator = $user_name . $password . "666";
+  $token = md5($tokenator);
   
   $result = $mysqli->query("INSERT INTO users (username,password,token) VALUES('$user_name','$password','$token')");  
   
   if($result==false) {
-    $error = "NEW_USER_FAILURE";
-    include 'error.php';
+    error_match("NEW_USER_FAILURE");
+  }
+  else {
+    echo "Success!";
   }
   
 ?>

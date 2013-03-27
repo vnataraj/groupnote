@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Server Testing</title>
+</head>
+
+<body>
+<table>
+  <tr><form action="getSessions.php" method="get">
+    <td>Get Sessions</td>
+    <td><input type="submit" value="Go"></td>
+    <td>Token: <input type="text" name="token"></td>
+    <td>Saved? <input type="text" name="saved" value="yes"></td>
+  </form></tr>
+  <tr><form action="getSessionNotes.php" method="get">
+    <td>Get Session Notes</td>
+    <td><input type="submit" value="Go"></td>
+    <td>Token: <input type="text" name="token"></td>
+    <td>Session: <input type="text" name="session_id"></td>
+  </form></tr>
+  <tr><form action="newUser.php" method="get">
+    <td>New User</td>
+    <td><input type="submit" value="Go"></td>
+    <td>Username: <input type="text" name="username"></td>
+    <td>Password: <input type="text" name="password"></td>
+  </form></tr>
+</table>
+</body>
+</html>
