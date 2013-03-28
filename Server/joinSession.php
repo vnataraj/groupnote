@@ -8,20 +8,21 @@ Returns: success (owner+name unique)
 include 'getUser.php';
   
 $token = $_GET["token"];
+$session_id = $_GET["session_id"];
+$passcode = $_GET["passcode"];
+
 $user_id = getUserFromToken($token);
 
-$session_id = $GET["session_id"];
-
 //query for session password
-$query = "SELECT passcode FROM sessions WHERE session_id=$session_id";
+$query = "SELECT passcode FROM sessions WHERE session_id='$session_id'";
 
 $result = $mysqli->query($query);
 
 if($result) {
   $row = $result->fetch_assoc();
   //create the passcode hash, but we'll use plaintext for now
-  if(row['passcode']!=NULL) {
-    if($passcode!=$row['passcode']) {
+  if($row['passcode']!=NULL) {
+    if(strcmp($passcode,$row['passcode'])!=0) {
       error_match("SESSION_INVALID_PASSWORD");
       exit;
     }

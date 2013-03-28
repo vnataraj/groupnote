@@ -9,40 +9,41 @@
   <tr><form action="newUser.php" method="get">
     <td>New User</td>
     <td><input type="submit" value="Go"></td>
-    <td>Username: <input type="text" name="username"></td>
-    <td>Password: <input type="text" name="password"></td>
+    <td>username: <input type="text" name="username"></td>
+    <td>password: <input type="text" name="password"></td>
   </form></tr>
 </table>
 
 <h2>Session Operations</h2>
 <table>
   <tr><form action="newSession.php" method="get">
-    <td>New User</td>
+    <td>New Session</td>
     <td><input type="submit" value="Go"></td>
-    <td>Token: <input type="text" name="token"></td>
-    <td>Sessio Name: <input type="text" name="session_name"></td>
-    <td>PassCode: <input type="text" name="passcode"></td>
+    <td>token: <input type="text" name="token"></td>
+    <td>session_name: <input type="text" name="session_name"></td>
+    <td>passcode: <input type="text" name="passcode"></td>
   </form></tr>
   
   <tr><form action="getSessions.php" method="get">
     <td>Get Sessions</td>
     <td><input type="submit" value="Go"></td>
-    <td>Token: <input type="text" name="token"></td>
-    <td>Saved? <input type="text" name="saved" value="yes"></td>
+    <td>token: <input type="text" name="token"></td>
+    <td>saved ("yes" or blank) <input type="text" name="saved" value="yes"></td>
   </form></tr>
   
   <tr><form action="getSessionNotes.php" method="get">
     <td>Get Session Notes</td>
     <td><input type="submit" value="Go"></td>
-    <td>Token: <input type="text" name="token"></td>
-    <td>Session ID: <input type="text" name="session_id"></td>
+    <td>token: <input type="text" name="token"></td>
+    <td>session_id: <input type="text" name="session_id"></td>
   </form></tr>
 
   <tr><form action="joinSession.php" method="get">
     <td>Join Session</td>
     <td><input type="submit" value="Go"></td>
-    <td>Token: <input type="text" name="token"></td>
-    <td>Session ID: <input type="text" name="session_id"></td>
+    <td>token: <input type="text" name="token"></td>
+    <td>session_id: <input type="text" name="session_id"></td>
+    <td>passcode (leave blank if none): <input type="text" name="passcode"></td>
   </form></tr> 
 </table>
 
@@ -51,15 +52,15 @@
   <tr><form action="newNote.php" method="get">
     <td>New Note</td>
     <td><input type="submit" value="Go"></td>
-    <td>Token: <input type="text" name="token"></td>
-    <td>Note Name: <input type="text" name="note_name"></td>
-    <td>Session ID (Optional): <input type="text" name="session_id"></td>
+    <td>token: <input type="text" name="token"></td>
+    <td>note_name: <input type="text" name="note_name"></td>
+    <td>session_id (Optional): <input type="text" name="session_id"></td>
   </form></tr>
   
   <tr><form action="getNote.php" method="get">
     <td>Get Note</td>
     <td><input type="submit" value="Go"></td>
-    <td>Note ID: <input type="text" name="note_id"></td>
+    <td>note_id: <input type="text" name="note_id"></td>
   </form></tr>
 </table>
 

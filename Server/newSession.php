@@ -13,13 +13,16 @@ $user_id = getUserFromToken($token);
 $session_name = $_GET["session_name"];
 $passcode = $_GET["passcode"];
 
-if($passcode=NULL) {
-  $query = "INSERT INTO sessions (name, owner) VALUES('$session_name','$user_id')";
+if(strcmp($passcode,"")==0) {
+  echo "passcode null...inserting without<br>";
+  $query = "INSERT INTO sessions (name) VALUES('$session_name')";
 }
 else {
-  $query = "INSERT INTO sessions (name, passcode, owner) VALUES('$session_name','$passcode','$user_id')";
+  echo "passcode was not null...inserting with<br>";
+  $query = "INSERT INTO sessions (name, passcode) VALUES('$session_name','$passcode')";
 }
-  
+
+echo "query is $query";
 $result = $mysqli->query($query);  
 
 if($result==false) {
@@ -27,7 +30,7 @@ if($result==false) {
   exit;
 }
 else {
-  $query = "INSERT INTO in_session (user, session) VALUES ('$user_id','$mysqli->insert_id')"
+  $query = "INSERT INTO in_session (user, session, is_owner) VALUES ('$user_id','$mysqli->insert_id','1')";
   $result = $mysqli->query($query);  
 
   if($result==false) {
