@@ -28,6 +28,10 @@ function error_match($error_code){
   {
     echo "The user could not be logged in. Try again.";
   }
+  else if (strcmp($error_code, "EDIT_NOTE_FAILURE")==0)
+  {
+	  echo "The note in question was not able to be modified, please try again or seek assistance!";
+  }
 	//add other error codes here as 'else if's...
 	else
 	{
