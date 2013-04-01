@@ -7,17 +7,22 @@
 <h2>User Operations</h2>
 <table>
   <tr><form action="newUser.php" method="get">
-    <td>New User</td>
+    <td>New User (newUser.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>username: <input type="text" name="username"></td>
     <td>password: <input type="text" name="password"></td>
   </form></tr>
-</table>
+  <tr><form action="login.php" method="get">
+    <td>Login (login.php)</td>
+    <td><input type="submit" value="Go"></td>
+    <td>username: <input type="text" name="username"></td>
+    <td>password: <input type="text" name="password"></td>
+  </form></tr></table>
 
 <h2>Session Operations</h2>
 <table>
   <tr><form action="newSession.php" method="get">
-    <td>New Session</td>
+    <td>New Session (newSession.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>token: <input type="text" name="token"></td>
     <td>session_name: <input type="text" name="session_name"></td>
@@ -25,21 +30,21 @@
   </form></tr>
   
   <tr><form action="getSessions.php" method="get">
-    <td>Get Sessions</td>
+    <td>Get Sessions (getSessions.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>token: <input type="text" name="token"></td>
     <td>saved ("yes" or blank) <input type="text" name="saved" value="yes"></td>
   </form></tr>
   
   <tr><form action="getSessionNotes.php" method="get">
-    <td>Get Session Notes</td>
+    <td>Get Session Notes (getSessionNotes.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>token: <input type="text" name="token"></td>
     <td>session_id: <input type="text" name="session_id"></td>
   </form></tr>
 
   <tr><form action="joinSession.php" method="get">
-    <td>Join Session</td>
+    <td>Join Session (joinSession.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>token: <input type="text" name="token"></td>
     <td>session_id: <input type="text" name="session_id"></td>
@@ -50,7 +55,7 @@
 <h2>Note Operations</h2>
 <table>
   <tr><form action="newNote.php" method="get">
-    <td>New Note</td>
+    <td>New Note (newNote.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>token: <input type="text" name="token"></td>
     <td>note_name: <input type="text" name="note_name"></td>
@@ -58,7 +63,7 @@
   </form></tr>
   
   <tr><form action="getNote.php" method="get">
-    <td>Get Note</td>
+    <td>Get Note (getNote.php)</td>
     <td><input type="submit" value="Go"></td>
     <td>note_id: <input type="text" name="note_id"></td>
   </form></tr>
