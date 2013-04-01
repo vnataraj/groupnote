@@ -10,7 +10,7 @@ function error_match($error_code){
 	}
 	else if(strcmp($error_code,"NEW_NOTE_FAILURE")==0)
 	{
-		echo "user was not able to be added to the table, please try again!";
+		echo "note was not able to be added to the table, please try again!";
 	}
   else if (strcmp($error_code,"CREATE_SESSION_FAILURE")==0)
   {
@@ -23,6 +23,10 @@ function error_match($error_code){
   else if (strcmp($error_code,"SESSION_INVALID_PASSWORD")==0)
   {
     echo "The password does not match what we have for the session. Try again!";
+  }
+  else if (strcmp($error_code, "EDIT_NOTE_FAILURE")==0)
+  {
+	  echo "The note in question was not able to be modified, please try again or seek assistance!";
   }
 	//add other error codes here as 'else if's...
 	else
