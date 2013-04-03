@@ -20,7 +20,7 @@ function getUserFromToken($token) //returns user ID based on the token
 			} 
 			else
 			{
-				error_match("USER_NOT_FOUND");
+				//error_match("USER_NOT_FOUND");
         return -1;
 			}
 	}
@@ -37,13 +37,13 @@ function getTokenFromUser($username, $password)
           return $row['token'];
         }
         else {
-          error_match("LOGIN_ERROR");
+          //error_match("LOGIN_ERROR");
           return -1;
         }
 			} 
     else
 			{
-				error_match("UKNOWN_ERROR");
+				//error_match("UKNOWN_ERROR");
         return -1;
 			}
 }

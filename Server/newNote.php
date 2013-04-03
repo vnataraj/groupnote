@@ -27,15 +27,19 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 	}
 	else
 	{
-		error_match("NEW_NOTE_FAILURE");
+		//error_match("NEW_NOTE_FAILURE");
+    echo "0";
+    return false;
 	}
 	if($result==false)
 	{
-		error_match("NEW_NOTE_FAILURE");
+		//error_match("NEW_NOTE_FAILURE");
+    echo "0";
 		return false;
 	}
 	else
 	{
+    echo "1";
 		return true;
 	}
 ?>

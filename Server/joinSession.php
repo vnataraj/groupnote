@@ -23,7 +23,8 @@ if($result) {
   //create the passcode hash, but we'll use plaintext for now
   if($row['passcode']!=NULL) {
     if(strcmp($passcode,$row['passcode'])!=0) {
-      error_match("SESSION_INVALID_PASSWORD");
+      echo "0";
+      //error_match("SESSION_INVALID_PASSWORD");
       exit;
     }
   }
@@ -32,8 +33,12 @@ if($result) {
   
   $result = $mysqli->query($query);
   if(!$result) {
-    error_match("UNKNOWN_ERROR");
+    echo "0";
+    //error_match("UNKNOWN_ERROR");
     exit;
+  }
+  else {
+    echo "1";
   }
 }
 

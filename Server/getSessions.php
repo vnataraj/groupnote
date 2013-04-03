@@ -21,7 +21,8 @@ if($result) {
   }
 }
 else {
-  error_match("UNKNOWN_ERROR");
+  //error_match("UNKNOWN_ERROR");
+  echo "0";
   exit;
 }
 ?>

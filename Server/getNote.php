@@ -14,5 +14,8 @@
       // $username = $row['username'];
       printf("$content");
     }
-  } 
+  }
+  else {
+    echo "0";
+  }
 ?>
