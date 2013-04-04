@@ -19,7 +19,7 @@ if($result) {
   }
 }
 else {
-  echo "0";
+  echo "-1";
   //error_match("UNKNOWN_ERROR");
 }
   

@@ -9,4 +9,7 @@ $token = getTokenFromUser($username,$password);
 if($token!=-1) { 
   echo $token;
 }
+else {
+  echo "-1";
+}
 ?>

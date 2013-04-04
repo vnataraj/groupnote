@@ -28,13 +28,13 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 	else
 	{
 		//error_match("NEW_NOTE_FAILURE");
-    echo "0";
+    echo "-1";
     return false;
 	}
 	if($result==false)
 	{
 		//error_match("NEW_NOTE_FAILURE");
-    echo "0";
+    echo "-1";
 		return false;
 	}
 	else

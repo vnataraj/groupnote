@@ -26,20 +26,23 @@ else {
 $result = $mysqli->query($query);  
 
 if($result==false) {
-  echo "0";
+  echo "-1";
   //error_match("CREATE_SESSION_FAILURE");
   exit;
 }
 else {
-  $query = "INSERT INTO in_session (user, session, is_owner) VALUES ('$user_id','$mysqli->insert_id','1')";
+  $new_session_id = $mysqli->insert_id;
+  $query = "INSERT INTO in_session (user, session, is_owner) VALUES ('$user_id','$new_session_id','1')";
   $result = $mysqli->query($query);  
 
   if($result==false) {
     //error_match("ENROLL_USER_FAILURE");
-    echo "0";
+    echo "-1";
     exit;
   }
+  else {
+    echo $new_session_id;
+  }
 }
-echo "1";
   
 ?>
