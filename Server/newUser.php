@@ -15,7 +15,19 @@
   }
   else {
     $new_user_id = $mysqli->insert_id;
-    echo $new_user_id;
+    $result = mysql->query("SELECT token FROM users WHERE user_id='$new_user_id'");
+    if ($result==false) {
+      echo FAILURE;
+    }
+    else {
+      $row = $result->fetch_assoc();
+      if($row['token']) {
+        echo $row['token'];
+      }
+      else {
+        echo FAILURE;
+      }
+    }
   }
   
 ?>
