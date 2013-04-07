@@ -39,7 +39,8 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 	}
 	else
 	{
-    echo SUCCESS;
+    $new_note_id = $mysqli->insert_id;
+    echo $new_note_id;
 		return true;
 	}
 ?>
