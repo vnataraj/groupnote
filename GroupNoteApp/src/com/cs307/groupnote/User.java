@@ -52,4 +52,8 @@ public class User {
 		refreshtime = refresh;
 		return refreshtime;
 	}
+	
+	public void logoutUser () {
+		currentUser = null;
+	}
 }

@@ -16,7 +16,7 @@
         android:textSize="45sp" />
 
     <EditText
-        android:id="@+id/usernametext"
+        android:id="@+id/sessionametext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/usernametext" >
+        android:layout_below="@+id/sessionametext" >
 
     </ListView>
 

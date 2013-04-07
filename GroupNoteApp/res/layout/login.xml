@@ -15,36 +15,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="45sp" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView4"
-        android:layout_marginRight="127dp"
-        android:layout_marginTop="54dp"
-        android:ems="10"
-        android:inputType="textShortMessage" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_marginRight="21dp"
-        android:layout_toLeftOf="@+id/editText2"
+        android:layout_alignBottom="@+id/usernametext"
         android:text="Username"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="25sp" />
-
-    <EditText
-        android:id="@+id/EditText02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/TextView03"
-        android:layout_alignLeft="@+id/editText2"
-        android:ems="10"
-        android:inputType="textShortMessage" />
 
     <TextView
         android:id="@+id/TextView03"
@@ -53,7 +31,7 @@
         android:layout_alignRight="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="44dp"
-        android:text="Passcode"
+        android:text="Password"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="25sp" />
 
@@ -61,7 +39,7 @@
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText02"
+        android:layout_below="@+id/loginpasscodetext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:text="New User?"
@@ -76,5 +54,29 @@
         android:layout_alignParentRight="true"
         android:text="Login"
         android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/loginpasscodetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/TextView03"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/TextView03"
+        android:ems="10"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/usernametext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginpasscodetext"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:inputType="textShortMessage" />
 
 </RelativeLayout>

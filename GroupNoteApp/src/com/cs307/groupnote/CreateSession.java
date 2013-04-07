@@ -21,15 +21,13 @@ import android.app.Activity;
 import android.content.Intent;
 
 public class CreateSession extends Activity {
-	
-	String[] userInfo = new String[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_session);
         
-    	final EditText usernametext = (EditText) findViewById(R.id.usernametext);
+    	final EditText sessionnametext = (EditText) findViewById(R.id.sessionametext);
     	final EditText passwordtext = (EditText) findViewById(R.id.passcodetext);
     
         //create button
@@ -38,22 +36,14 @@ public class CreateSession extends Activity {
             public void onClick(View v) {
                 // Perform action on click
             	
-            	if (usernametext.getText().toString().trim().equals("")) {
+            	if (sessionnametext.getText().toString().trim().equals("")) {
             		Toast toast = Toast.makeText(getApplicationContext(), "A session name is required!" , Toast.LENGTH_SHORT);
 	    	        toast.show();
             	} else {
-            		userInfo[0] = usernametext.getText().toString();
-            		
-            		/*if (passwordtext.getText().toString().trim().equals("")) {
-            			userInfo[1] = "";
-            		} else {
-            			userInfo[1] = passwordtext.getText().toString().trim();
-            		}*/
-            		
+            		String[] userInfo = new String[3];
+            		userInfo[0] = sessionnametext.getText().toString();
             		userInfo[1] = passwordtext.getText().toString();
-            		
             		userInfo[2] = "";
-            		
             		new CreateNewSession().execute(userInfo);
             	}
             }
@@ -71,9 +61,9 @@ public class CreateSession extends Activity {
  		   getRequest.append("http://groupnote.net78.net/newSession.php?token=");
  		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
  		   getRequest.append("&session_name=");
- 		   getRequest.append(userInfo[0]); //Append session name here
+ 		   getRequest.append(params[0][0]); //Append session name here
  		   getRequest.append("&passcode=");
- 		   getRequest.append(userInfo[1]); //Append session passcode here, optional.
+ 		   getRequest.append(params[0][1]); //Append session passcode here, optional.
  		   
  	        try {
  	        	HttpClient client = new DefaultHttpClient();  
@@ -105,13 +95,15 @@ public class CreateSession extends Activity {
  	   @Override
  	   protected void onPostExecute(String result)  {
  	        super.onPostExecute(result);
- 	       
- 	       Toast toast = Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT);
-        	toast.show();
  	        
- 	        //Start new note activity
- 	        Intent i = new Intent(getBaseContext(), ViewNote.class);
- 	        startActivity(i);
+ 	       if (result.equals("-1")) {
+	    	   	Toast toast = Toast.makeText(getApplicationContext(), "New session creation encountered a problem. Please try again later." , Toast.LENGTH_SHORT);
+	    	   	toast.show();
+	       } else {
+	    	   //Start new note activity
+	    	   Intent i = new Intent(getBaseContext(), ViewNote.class);
+	    	   startActivity(i);
+	       }
  	   }
  	 
  } 
