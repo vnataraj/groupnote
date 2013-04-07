@@ -34,12 +34,12 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 	if($result==false)
 	{
 		//error_match("NEW_NOTE_FAILURE");
-    echo "-1";
+    echo FAILURE;
 		return false;
 	}
 	else
 	{
-    echo "1";
+    echo SUCCESS;
 		return true;
 	}
 ?>

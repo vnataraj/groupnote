@@ -23,7 +23,7 @@ if($result) {
   //create the passcode hash, but we'll use plaintext for now
   if($row['passcode']!=NULL) {
     if(strcmp($passcode,$row['passcode'])!=0) {
-      echo "-1";
+      echo FAILURE;
       //error_match("SESSION_INVALID_PASSWORD");
       exit;
     }
@@ -38,7 +38,7 @@ if($result) {
     exit;
   }
   else {
-    echo "1";
+    echo SUCCESS;
   }
 }
 

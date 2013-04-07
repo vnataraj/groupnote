@@ -16,6 +16,6 @@
     }
   }
   else {
-    echo "-1";
+    echo FAILURE;
   }
 ?>

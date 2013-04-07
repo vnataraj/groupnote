@@ -13,13 +13,13 @@ $result=$mysqli->query("UPDATE notes SET content='$content' WHERE note_id='$note
 
 if($result=false)
 {
-  echo "-1";
+  echo FAILURE;
 	//error_match("EDIT_NOTE_FAILURE");
 	return false; 
 }
 else
 {
-  echo "1";
+  echo SUCCESS;
 	return true;
 }
 

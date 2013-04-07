@@ -10,6 +10,6 @@ if($token!=-1) {
   echo $token;
 }
 else {
-  echo "-1";
+  echo FAILURE;
 }
 ?>

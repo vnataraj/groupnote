@@ -26,7 +26,7 @@ else {
 $result = $mysqli->query($query);  
 
 if($result==false) {
-  echo "-1";
+  echo FAILURE;
   //error_match("CREATE_SESSION_FAILURE");
   exit;
 }
@@ -37,7 +37,7 @@ else {
 
   if($result==false) {
     //error_match("ENROLL_USER_FAILURE");
-    echo "-1";
+    echo FAILURE;
     exit;
   }
   else {

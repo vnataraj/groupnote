@@ -22,7 +22,7 @@ if($result) {
 }
 else {
   //error_match("UNKNOWN_ERROR");
-  echo "-1";
+  echo FAILURE;
   exit;
 }
 ?>

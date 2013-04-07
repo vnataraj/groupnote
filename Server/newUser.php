@@ -10,11 +10,12 @@
   $result = $mysqli->query("INSERT INTO users (username,password,token) VALUES('$user_name','$password','$token')");  
   
   if($result==false) {
-    echo "-1";
+    echo FAILURE;
    // error_match("NEW_USER_FAILURE");
   }
   else {
-    echo "1";
+    $new_user_id = $mysqli->insert_id;
+    echo $new_user_id;
   }
   
 ?>
