@@ -15,7 +15,8 @@
   }
   else {
     $new_user_id = $mysqli->insert_id;
-    $result = mysql->query("SELECT token FROM users WHERE user_id='$new_user_id'");
+    $query = "SELECT token FROM users WHERE user_id='$new_user_id'";
+    $result = $mysqli->query($query);
     if ($result==false) {
       echo FAILURE;
     }
