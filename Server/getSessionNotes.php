@@ -1,5 +1,8 @@
 <?php
-
+/*
+ * getSessionNotes(token, session_id)- returns list of notes tied to session upon authentication
+ * 
+ */
 include 'getUser.php';
   
 $token = $_GET["token"];

@@ -1,5 +1,5 @@
 USER OPERATIONS:
-newUser - Adds a new user to the database
+newUser - Adds a new user to the database(Vip)
   Params: username, password, password confirm (?)
   Returns: success (username not taken, valid input)
            error (username taken, invalid input)
@@ -17,7 +17,7 @@ newSession - Creates a new session
            error (owner+name not unique)
            
 getSessions - Returns a list of all sessions
-  Params: User_id (optional)
+  Params: Token, Session ID
   Returns: List of sessions
 
 joinSession - Registers a user for membership in a session
@@ -32,9 +32,18 @@ getNotesForSession - Returns a list of note IDs and owner names for session
 
 
 NOTE OPERATIONS (Vip):
-newNote
-updateNote
-getNote
+newNote-  Returns a note ID on successful completion, throws error otherwise
+ Params: Note name, note content, note owner, session number
+ Returns: noteID on completion
+ 			error: note was not able to be inserted
+
+editNote- edits pre-existing note in notes table with new content
+ Params: note id, content, token
+ Returns: returns a "true" on success, "false" on failure
+
+getNote- returns contents of singular note
+ Params: token, note id
+ Returns: note content(serialized)
 
 FOR LATER:
 
