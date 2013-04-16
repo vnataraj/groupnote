@@ -1,7 +1,6 @@
 <?php
 
 include 'getUser.php';
-include 'error.php';
 
 $token = $_GET["token"];
   
