@@ -56,17 +56,24 @@ public class FindSession extends Activity {
     	mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
     			// Perform action on click
+    			String[] splits = adapter.getItemAtPosition(position).toString().split(", ");
+    			
+    			User newuser = User.getUser();
+	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
+	 	    	newuser.setCurrentSessionName(splits[1]);
+    			
     			Intent i = new Intent(getBaseContext(), EditNote.class);
     			startActivity(i);
     		}
-    	});  
+    	});   
     }
     
     
-    public String[] translateServerResponse(String response) {
+ public String[] translateServerResponse(String response) {
     	
     	int classCount = 0;
     	String[] classes;
+    	String[] combined;
     	int[] sectionId;
     	
     	
@@ -83,6 +90,7 @@ public class FindSession extends Activity {
      	
      	classes = new String[classCount];
      	sectionId = new int[classCount];
+     	combined = new String[classCount];
      	
      	int counter = 0;
      	
@@ -105,9 +113,10 @@ public class FindSession extends Activity {
      		}
      		classes[i] = tempstring.toString();
      		
+     		combined[i] = Integer.toString(sectionId[i]) + ", " + classes[i];
      	}
      	
-     	return classes;
+     	return combined;
     }
     
     

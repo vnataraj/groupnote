@@ -6,6 +6,7 @@ public class User {
 	private String username;
 	private String sessioncode;
 	private String noteID; //the current session number the user is in
+	private String currentSessionName; //the current session number the user is in
 	private Integer currentSession; //the note_id of the users current note
 	
 	private int refreshtime;
@@ -26,6 +27,15 @@ public class User {
 		if (currentUser != null) active = true;
 		
 		return active;
+	}
+	
+	public String getCurrentSessionName() {
+		return currentSessionName;
+	}
+	
+	public String setCurrentSessionName(String name) {
+		currentSessionName = name;
+		return currentSessionName;
 	}
 	
 	public String getUsername() {
