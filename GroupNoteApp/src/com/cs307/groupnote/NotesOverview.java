@@ -11,5 +11,9 @@ public class NotesOverview extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_overview);
     }
-    
+    /*To Do here
+     * given session id and user id download all users with notes. 
+     * when a users name is clicked open that page in EditNote but send message that it shouldnt be editable.  
+     * 
+     */
 }

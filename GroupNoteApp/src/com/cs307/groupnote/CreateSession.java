@@ -27,7 +27,7 @@ public class CreateSession extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_session);
         
-    	final EditText sessionnametext = (EditText) findViewById(R.id.sessionametext);
+    	final EditText sessionnametext = (EditText) findViewById(R.id.notetext);
     	final EditText passwordtext = (EditText) findViewById(R.id.passcodetext);
     
         //create button

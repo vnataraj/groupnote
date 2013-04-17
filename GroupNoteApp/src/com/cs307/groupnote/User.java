@@ -5,6 +5,8 @@ public class User {
 
 	private String username;
 	private String sessioncode;
+	private String noteID; //the current session number the user is in
+	private Integer currentSession; //the note_id of the users current note
 	
 	private int refreshtime;
 	
@@ -33,6 +35,22 @@ public class User {
 	public String setUsername(String user) {
 		username = user;
 		return username;
+	}
+	public Integer getCurrentSession() {
+		return currentSession;
+	}
+	
+	public Integer setCurrentSession(Integer session) {
+		currentSession = session;
+		return currentSession;
+	}
+	public String getNoteID() {
+		return noteID;
+	}
+	
+	public String setNoteID(String note) {
+		noteID = note;
+		return noteID;
 	}
 	
 	public String getSessionCode() {
