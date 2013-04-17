@@ -5,7 +5,7 @@
     tools:context=".FindSession" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/sessionnametext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,11 +16,11 @@
         android:textSize="45sp" />
 
     <EditText
-        android:id="@+id/sessionametext"
+        android:id="@+id/notetext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/sessionnametext"
         android:layout_marginTop="18dp"
         android:ems="10"
         android:text="filter..."
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sessionametext" >
+        android:layout_below="@+id/notetext" >
 
     </ListView>
 
