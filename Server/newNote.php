@@ -40,7 +40,6 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 	else
 	{
     $new_note_id = $mysqli->insert_id;
-    echo $new_note_id;
-		return true;
+    	return $new_note_id;
 	}
 ?>
