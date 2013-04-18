@@ -5,9 +5,9 @@ public class User {
 
 	private String username;
 	private String sessioncode;
-	private String noteID; //the current session number the user is in
+	private String noteID; //the note_id of the users current note 
 	private String currentSessionName; //the current session number the user is in
-	private Integer currentSession; //the note_id of the users current note
+	private Integer currentSession; //the current session number the user is in
 	
 	private int refreshtime;
 	
