@@ -7,17 +7,17 @@ $token = $_GET["token"];
 $user_id = getUserFromToken($token);
 
 if (strcmp($_GET["saved"],"yes")==0) { //get user's sessions
-  $query = "SELECT session_id, name FROM sessions WHERE session_id IN (SELECT session FROM in_session WHERE user=$user_id) ORDER BY name ASC";
+  $query = "SELECT session_id, name, latitude, longitude, radius FROM sessions WHERE session_id IN (SELECT session FROM in_session WHERE user=$user_id) ORDER BY name ASC";
 }
 else { //get all sessions
-  $query = "SELECT session_id, name FROM sessions ORDER BY name ASC";
+  $query = "SELECT session_id, name, latitude, longitude, radius FROM sessions ORDER BY name ASC";
 }
 
 $result = $mysqli->query($query);
 
 if($result) {
   while($row = $result->fetch_assoc()) {
-    printf("%d,%s;\n",$row['session_id'],$row['name']);
+    printf("%d,%s, %f, %f, %d;\n",$row['session_id'],$row['name'],$row['latitude'],$row['longitude'],$row['radius']);
   }
 }
 else {
