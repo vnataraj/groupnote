@@ -11,23 +11,14 @@ $user_id=getUserFromToken($token);
 
 $result=$mysqli->query("UPDATE notes SET content='$content' WHERE note_id='$note_id' AND owner='$user_id'");
 
-if($result=false)
+if(!$result)
 {
   echo FAILURE;
 	//error_match("EDIT_NOTE_FAILURE");
-	return false; 
 }
 else
 {
   echo SUCCESS;
-	return true;
 }
 
-	
-	
-	
-	
-	
-	
-	
 ?>

@@ -8,7 +8,6 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 
            */
 	include 'getUser.php';
-	include 'error.php';
 	
 	$token = $_GET["token"];
   $user_id = getUserFromToken($token);
@@ -19,28 +18,22 @@ Possible Errors: NEW_NOTE_INSERTION_ERROR
 
 	if($session_id == -1)
 	{
-		$result=$mysqli->query("INSERT INTO notes (name, content, owner, session) VALUES ('$note_name', '$content', '$user_id', "NULL")");
+		echo "inserting with null section!";
+		$result=$mysqli->query("INSERT INTO notes (name, content, owner) VALUES ('$note_name', '$content', '$user_id')");
 	}
 	else if($session_id)
 	{
 		$result=$mysqli->query("INSERT INTO notes (name, content, owner, session) VALUES ('$note_name', '$content', '$user_id', '$session_id')");
 	}
-	else
-	{
-		//error_match("NEW_NOTE_FAILURE");
-    echo "-1";
-    return false;
-	}
 	if($result==false)
 	{
 		//error_match("NEW_NOTE_FAILURE");
-    echo FAILURE;
+    	echo FAILURE;
 		return false;
 	}
 	else
 	{
-    $new_note_id = $mysqli->insert_id;
-    echo $new_note_id;
-		return true;
+    	$new_note_id = $mysqli->insert_id;
+    	echo $new_note_id;
 	}
 ?>
