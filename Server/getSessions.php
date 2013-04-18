@@ -7,10 +7,10 @@ $token = $_GET["token"];
 $user_id = getUserFromToken($token);
 
 if (strcmp($_GET["saved"],"yes")==0) { //get user's sessions
-  $query = "SELECT session_id, name FROM sessions WHERE session_id IN (SELECT session FROM in_session WHERE user=$user_id)";
+  $query = "SELECT session_id, name FROM sessions WHERE session_id IN (SELECT session FROM in_session WHERE user=$user_id) ORDER BY name ASC";
 }
 else { //get all sessions
-  $query = "SELECT session_id, name FROM sessions";
+  $query = "SELECT session_id, name FROM sessions ORDER BY name ASC";
 }
 
 $result = $mysqli->query($query);
