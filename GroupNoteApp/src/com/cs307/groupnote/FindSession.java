@@ -18,9 +18,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -28,6 +31,9 @@ import android.content.Context;
 import android.content.Intent;
 
 public class FindSession extends Activity {
+	
+	String[] combined;
+	int classCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,59 @@ public class FindSession extends Activity {
         setContentView(R.layout.find_session);  
         
         new PopulateFindSession().execute("");
+        
+        final EditText et = (EditText) findViewById(R.id.notetext);
+        
+        et.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				filterListResults(et.getText().toString());
+			}
+        	
+    	});
+    }
+    
+    public void filterListResults(String filter) {
+    	
+    	if (filter.equals("")) {
+    		populateList(combined);
+    	}
+    	
+    	String[] filtered = new String[classCount];
+    	
+    	int counter = 0;
+    	
+    	for (int i = 0; i < classCount; i++) {
+    		if (combined[i].toLowerCase().contains(filter.toLowerCase())) {
+    			filtered[counter++] = combined[i];
+    		}
+    	}
+    	
+    	//copy array to array of proper size
+    	
+    	String[] truncated = new String[counter];
+    	
+    	for (int i = 0; i < counter; i++) {
+    		truncated[i] = filtered[i];
+    	}
+    	
+    	populateList(truncated);
     }
     
     
@@ -68,12 +127,10 @@ public class FindSession extends Activity {
     	});   
     }
     
-    
  public String[] translateServerResponse(String response) {
     	
-    	int classCount = 0;
+    	classCount = 0;
     	String[] classes;
-    	String[] combined;
     	int[] sectionId;
     	
     	
@@ -256,7 +313,7 @@ public class FindSession extends Activity {
 		   
 		   private void TranslateServerResponse(String response)
 		   {
-		    	int classCount = 0;
+		    	
 		    	String[] classes;
 		    	String[] combined;
 		    	int[] sectionId;
