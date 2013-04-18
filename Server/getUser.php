@@ -1,7 +1,6 @@
 <?php
 
 include 'database.php';
-include 'error.php';
 
 function getUserFromToken($token) //returns user ID based on the token
 	{

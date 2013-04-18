@@ -43,7 +43,12 @@ editNote- edits pre-existing note in notes table with new content
 
 getNote- returns contents of singular note
  Params: token, note id
- Returns: note content(serialized)
+ Returns: note as string
+
+removeNote- deletes note from notes table
+ Params: token, note id
+ Returns: success on completion, failure on deletion
+ 
 
 FOR LATER:
 
