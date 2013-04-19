@@ -11,13 +11,18 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 public class CreateSession extends Activity {
@@ -40,10 +45,29 @@ public class CreateSession extends Activity {
             		Toast toast = Toast.makeText(getApplicationContext(), "A session name is required!" , Toast.LENGTH_SHORT);
 	    	        toast.show();
             	} else {
-            		String[] userInfo = new String[3];
+            		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            		Criteria crit = new Criteria();
+            		Location location = lm.getLastKnownLocation(lm.getBestProvider(crit,true));
+            		double longitude = location.getLongitude();
+            		double latitude = location.getLatitude();
+            		
+            		String[] userInfo = new String[5];
             		userInfo[0] = sessionnametext.getText().toString();
             		userInfo[1] = passwordtext.getText().toString();
-            		userInfo[2] = "";
+            		
+            		final CheckBox cb = (CheckBox) findViewById(R.id.CheckBox01);
+            		
+            		if (cb.isChecked()) {
+            			userInfo[2] = Double.toString(latitude);
+            			userInfo[3] = Double.toString(longitude);
+            			userInfo[4] = "10";
+            		} else {
+            			userInfo[2] = "";
+            			userInfo[3] = "";
+            			userInfo[4] = "";
+            		}
+            		
+            		
             		new CreateNewSession().execute(userInfo);
             	}
             }
@@ -64,6 +88,13 @@ public class CreateSession extends Activity {
  		   getRequest.append(params[0][0]); //Append session name here
  		   getRequest.append("&passcode=");
  		   getRequest.append(params[0][1]); //Append session passcode here, optional.
+ 		   getRequest.append("&latitude=");
+		   getRequest.append(params[0][2]); //Append session latitude here, optional.
+		   getRequest.append("&longitude=");
+ 		   getRequest.append(params[0][3]); //Append session longitude here, optional.
+ 		   getRequest.append("&radius=");
+		   getRequest.append(params[0][4]); //Append session radius here, optional.
+ 		   
  		   User.getUser().setCurrentSessionName(params[0][0]);
  		   
  	        try {
