@@ -295,9 +295,8 @@ public class EditNote extends Activity {
     			});
     		}
     		
-    		byte[] data = Base64.decode(response.toString(), Base64.DEFAULT);
+    		return response.toString();
     		//Convert response to byte[] or change the way the function works. 
-    		return  deserializeObject(data);
     	}
     	
 
