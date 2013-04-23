@@ -22,7 +22,6 @@ public final class R {
         public static final int button2=0x7f070007;
         public static final int button5=0x7f070010;
         public static final int checkBox2=0x7f07000e;
-        public static final int expandableListView1=0x7f070011;
         public static final int gridView1=0x7f070013;
         public static final int listView1=0x7f070008;
         public static final int loginpasscodetext=0x7f07000f;
@@ -31,6 +30,7 @@ public final class R {
         public static final int passcodetext=0x7f070003;
         public static final int rowTextView=0x7f070009;
         public static final int sessionnametext=0x7f070000;
+        public static final int spinner1=0x7f070011;
         public static final int textView2=0x7f070002;
         public static final int textView3=0x7f07000b;
         public static final int textView4=0x7f07000a;

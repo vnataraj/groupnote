@@ -15,49 +15,33 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="45sp" />
 
-    <ExpandableListView
-        android:id="@+id/expandableListView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/TextView03"
-        android:layout_marginLeft="45dp"
-        android:layout_toRightOf="@+id/TextView03"
-        android:scrollbars="vertical"
-        tools:listitem="@android:layout/simple_expandable_list_item_1" >
-
-    </ExpandableListView>
-
-    <Button
-        android:id="@+id/Button03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignRight="@+id/button5"
-        android:layout_below="@+id/button5"
-        android:layout_marginTop="24dp"
-        android:text="Logout"
-        android:textSize="25sp" />
-
     <TextView
         android:id="@+id/TextView03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView3"
-        android:layout_marginLeft="48dp"
         android:layout_marginTop="44dp"
-        android:text="Refresh Interval"
+        android:text="Refresh Interval (mins)"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/button5"
+    <Spinner
+        android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TextView03"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:text="Change Password"
+        android:layout_alignBottom="@+id/TextView03"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/TextView03" />
+
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Logout"
         android:textSize="25sp" />
 
 </RelativeLayout>

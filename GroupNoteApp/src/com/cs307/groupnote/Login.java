@@ -133,7 +133,7 @@ public class Login extends Activity {
 	 	    	   User newuser = User.getUser();
 	 	    	   newuser.setUsername(usernameTemp);
 	 	    	   newuser.setSessionCode(result);
-	 	    	   newuser.setRefreshTime(30);
+	 	    	   new getRefreshTime().execute("");
        		
 	 	    	   Intent i = new Intent(getBaseContext(), MainActivity.class);
 	 	    	   startActivity(i);
@@ -210,6 +210,56 @@ public class Login extends Activity {
 	 	   }
 	 	 
 	 }
+    
+    
+    
+    
+    private class getRefreshTime extends AsyncTask<String, Void, String> {
+    	
+ 	   @Override
+ 	   protected String doInBackground(String... params) {
+ 		   	   
+ 		   StringBuilder response = new StringBuilder();
+ 		   StringBuilder getRequest = new StringBuilder();
+ 		   
+ 		   getRequest.append("http://groupnote.net78.net/getRefreshTime.php?token=");
+ 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here  <--------
+ 		   
+ 	        try {
+ 	        	HttpClient client = new DefaultHttpClient();  
+ 	            URI getURL = new URI(getRequest.toString());
+ 	            HttpGet get = new HttpGet();
+ 	            get.setURI(getURL);
+ 	            HttpResponse responseGet = client.execute(get);  
+ 	            HttpEntity resEntityGet = responseGet.getEntity(); 
+ 	            if (resEntityGet != null) { 
+ 	            	BufferedReader r = new BufferedReader(new InputStreamReader(resEntityGet.getContent()));
+ 	            	String line;
+ 	            	while ((line = r.readLine()) != null) {
+ 	            	    response.append(line);
+ 	            	}
+ 	            }
+ 	        } 	    
+ 	        catch (Exception e) {
+ 	        	runOnUiThread(new Runnable() {
+ 	                public void run() {
+ 	    	        	Toast toast = Toast.makeText(getApplicationContext(), "Error connecting to server! Please try again." , Toast.LENGTH_SHORT);
+ 	    	        	toast.show();
+ 	                }
+ 	        	});
+ 	        }
+ 	        
+ 	        return response.toString();
+ 	   }
+ 	   
+ 	   @Override
+ 	   protected void onPostExecute(String result)  {
+ 	        super.onPostExecute(result);
+ 	        User newuser = User.getUser();
+ 	        newuser.setRefreshTime(Integer.parseInt(result.trim()));
+ 	   }
+ 	 
+ } 
 }
 
 
