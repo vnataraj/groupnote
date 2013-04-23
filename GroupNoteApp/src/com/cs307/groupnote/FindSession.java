@@ -23,10 +23,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 
@@ -34,11 +36,14 @@ public class FindSession extends Activity {
 	
 	String[] combined;
 	int classCount;
+	Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_session);  
+        
+        dialog = new Dialog(this);
         
         new PopulateFindSession().execute("");
         
@@ -115,14 +120,29 @@ public class FindSession extends Activity {
     	mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
     			// Perform action on click
+    			
     			String[] splits = adapter.getItemAtPosition(position).toString().split(", ");
     			
     			User newuser = User.getUser();
 	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
 	 	    	newuser.setCurrentSessionName(splits[1]);
-    			new NewNote().execute(""); //creates a new note for the user in this session
-    			Intent i = new Intent(getBaseContext(), EditNote.class);
-    			startActivity(i);
+	 	    	
+	 	    	
+	 	    	
+	 	    	//Pop up password prompt dialog
+				dialog.setContentView(R.layout.password_prompt);
+				dialog.setTitle("Join session: " + splits[1]);
+	 
+				final EditText pass = (EditText) dialog.findViewById(R.id.editTextpass);
+				Button dialogButton = (Button) dialog.findViewById(R.id.joinsessionbut);
+				// if button is clicked, close the custom dialog
+				dialogButton.setOnClickListener(new View.OnClickListener() {
+		            public void onClick(View v) {
+		            	new CheckJoinSession().execute(pass.getText().toString());
+		            }
+				});
+	 
+				dialog.show();
     		}
     	});   
     }
@@ -134,10 +154,10 @@ public class FindSession extends Activity {
     	int[] sectionId;
     	
     	
-    	/*Context context = getApplicationContext();
-     	int duration = Toast.LENGTH_SHORT;
-     	Toast toast = Toast.makeText(context, response, duration);
-     	toast.show();*/
+    	//Context context = getApplicationContext();
+     	//int duration = Toast.LENGTH_SHORT;
+     	//Toast toast = Toast.makeText(context, response, duration);
+     	//toast.show();
      	
      	/// Convert string to array of strings and integers containing the class names and the session id's consecutively.
      	
@@ -225,49 +245,80 @@ public class FindSession extends Activity {
     	 
     } 
     
-	   private class NewNote extends AsyncTask<String,Void,String>
-	   {
+    
+    private class CheckJoinSession extends AsyncTask<String, Void, String> {
+    	
+ 	   @Override
+ 	   protected String doInBackground(String... params) {
+ 		   	   
+ 		   StringBuilder response = new StringBuilder();
+ 		   StringBuilder getRequest = new StringBuilder();
+ 		   
+ 		   getRequest.append("http://groupnote.net78.net/joinSession.php?token=");
+ 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
+ 		   getRequest.append("&session_id=");
+ 		   getRequest.append(User.getUser().getCurrentSession()); //Append user token here
+		   getRequest.append("&passcode=");
+		   getRequest.append(params[0].trim());
+		   
+ 	        try {
+ 	        	HttpClient client = new DefaultHttpClient();  
+ 	            URI getURL = new URI(getRequest.toString());
+ 	            HttpGet get = new HttpGet();
+ 	            get.setURI(getURL);
+ 	            HttpResponse responseGet = client.execute(get);  
+ 	            HttpEntity resEntityGet = responseGet.getEntity(); 
+ 	            if (resEntityGet != null) { 
+ 	            	BufferedReader r = new BufferedReader(new InputStreamReader(resEntityGet.getContent()));
+ 	            	String line;
+ 	            	while ((line = r.readLine()) != null) {
+ 	            	    response.append(line);
+ 	            	}
+ 	            }
+ 	        } 	    
+ 	        catch (Exception e) {
+ 	        	runOnUiThread(new Runnable() {
+ 	                public void run() {
+ 	    	        	Toast toast = Toast.makeText(getApplicationContext(), "Error connecting to server! Please try again." , Toast.LENGTH_SHORT);
+ 	    	        	toast.show();
+ 	                }
+ 	        	});
+ 	        }
+ 	        
+ 	        
+ 	        return response.toString();
+ 	   }
+ 	   
+ 	   @Override
+ 	   protected void onPostExecute(String result)  {
+ 	        super.onPostExecute(result);   
+ 	        
+ 	        Toast toast;
+ 	        
+ 	        if (result.trim().equals("-1")) {
+ 	        	toast = Toast.makeText(getApplicationContext(), "Check 'Joined Sessions' to see if you are already a part of this session. If so, please enter the session there. If not, please reenter the correct password above." , Toast.LENGTH_LONG);
+ 	        	toast.show();
+ 	        } else {
+ 	        	
+ 	        	toast = Toast.makeText(getApplicationContext(), "You have joined this session! Please go to 'Joined Sessions' and click this session to view the session." , Toast.LENGTH_LONG);
+ 	        	toast.show();
+ 	        	dialog.dismiss();
+
+ 	        	new NewNote().execute("");
+ 	        }
+ 	   }
+ 	 
+    }
+    
+    
+	private class NewNote extends AsyncTask<String,Void,String> {
+		
 		   @Override
-		   protected String doInBackground(String...params)
-		   {
-			   //Get the new Session ID
+		   protected String doInBackground(String...params) {
+	 	        //Make a new note
+			   
 	 		   StringBuilder response = new StringBuilder();
 	 		   StringBuilder getRequest = new StringBuilder();
-	 		   
-	 		   
-	 		   getRequest.append("http://groupnote.net78.net/getSessions.php?token=");
-	 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
-	 		   getRequest.append("&saved=yes");
-	 		   
-	 	        try {
-	 	        	HttpClient client = new DefaultHttpClient();  
-	 	            URI getURL = new URI(getRequest.toString());
-	 	            HttpGet get = new HttpGet();
-	 	            get.setURI(getURL);
-	 	            HttpResponse responseGet = client.execute(get);  
-	 	            HttpEntity resEntityGet = responseGet.getEntity(); 
-	 	            if (resEntityGet != null) { 
-	 	            	BufferedReader r = new BufferedReader(new InputStreamReader(resEntityGet.getContent()));
-	 	            	String line;
-	 	            	while ((line = r.readLine()) != null) {
-	 	            	    response.append(line);
-	 	            	}
-	 	            }
-	 	        } 	    
-	 	        catch (Exception e) {
-	 	        	runOnUiThread(new Runnable() {
-	 	                public void run() {
-	 	    	        	Toast toast = Toast.makeText(getApplicationContext(), "Error connecting to server! Please try again." , Toast.LENGTH_SHORT);
-	 	    	        	toast.show();
-	 	                }
-	 	        	});
-	 	        }
-	 	        
-	 	        TranslateServerResponse(response.toString());
-	 	        //now make new note
-			   
-	 		   response = new StringBuilder();
-	 		   getRequest = new StringBuilder();
 	 		   
 	 		   String noteName = User.getUser().getSessionCode() + "_" + User.getUser().getCurrentSessionName();
 	 		   
@@ -310,58 +361,5 @@ public class FindSession extends Activity {
 			   super.onPostExecute(result);
 			   User.getUser().setNoteID(result);
 		   }
-		   
-		   private void TranslateServerResponse(String response)
-		   {
-		    	
-		    	String[] classes;
-		    	String[] combined;
-		    	int[] sectionId;
-		    	
-		    	
-		    	/*Context context = getApplicationContext();
-		     	int duration = Toast.LENGTH_SHORT;
-		     	Toast toast = Toast.makeText(context, response, duration);
-		     	toast.show();*/
-		     	
-		     	/// Convert string to array of strings and integers containing the class names and the session id's consecutively.
-		     	
-		     	for (int i = 0; i < response.length(); i++) {
-		     		if (response.charAt(i) == ';') classCount++;
-		     	}
-		     	
-		     	classes = new String[classCount];
-		     	sectionId = new int[classCount];
-		     	combined = new String[classCount];
-		     	
-		     	int counter = 0;
-		     	
-		     	for (int i = 0; i < classCount; i++) {
-		     		classes[i] = "";
-		     		sectionId[i] = -1;
-		     		
-		     		char tempchar;
-		 		   StringBuilder tempstring = new StringBuilder();
-		     		
-		     		while ((tempchar = response.charAt(counter++)) != ',') {
-		     			tempstring.append(Character.toString(tempchar));
-		     		}
-		 			sectionId[i] = Integer.parseInt(tempstring.toString());
-		     		
-		     		tempstring = new StringBuilder();
-		     		
-		     		while ((tempchar = response.charAt(counter++)) != ';') {
-		     			tempstring.append(Character.toString(tempchar));
-		     		}
-		     		classes[i] = tempstring.toString();
-		     		
-		     		combined[i] = Integer.toString(sectionId[i]) + ", " + classes[i];
-		     		if(classes[i].equals(User.getUser().getCurrentSessionName()))
-		     		{
-		     			User.getUser().setCurrentSession(sectionId[i]);
-		     			return;
-		     		}
-		     	}
-		   }
-	   }
+	}
 }
