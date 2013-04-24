@@ -44,7 +44,7 @@ public class ViewNote extends Activity {
         setContentView(R.layout.view_note);
         new GetMembers().execute("");
     }
-    public void populateList(String[] members)
+    public void populateList()
     {
     	GridView mainGridView = (GridView) findViewById(R.id.gridView1);
     	ArrayList<String> memberList = new ArrayList<String>();
@@ -57,14 +57,21 @@ public class ViewNote extends Activity {
     		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
     			// Perform action on click
     			//String[] splits = adapter.getItemAtPosition(position).toString().split(", ");
+    			int pos = position;
+    			User u = User.getUser();
+    			int n = noteIds[position];
+    			String name = members[position];
+    			String test = adapter.getItemAtPosition(position).toString();
     			User.getUser().setNoteID(noteIds[position]+"");
-    			if(User.getUser().getUsername().compareTo(adapter.getItemAtPosition(position).toString())==0)
+    			//if(User.getUser().getUsername().compareTo(adapter.getItemAtPosition(position).toString())==0)
+    			if(User.getUser().getUsername().compareTo(members[position]) ==0)
     			{
     				User.getUser().setOtherNote(false);
     			}
     			else
     			{
-    				User.getUser().setOtherName(adapter.getItemAtPosition(position).toString());
+    				//User.getUser().setOtherName(adapter.getItemAtPosition(position).toString());
+    				User.getUser().setOtherName(members[position]);
     				User.getUser().setOtherNote(true);
     			}
     			Intent i = new Intent(getBaseContext(),EditNote.class);
@@ -83,10 +90,10 @@ public class ViewNote extends Activity {
      * when a users name is clicked open that page in EditNote but send message that it shouldnt be editable.  
      * 
      */
-    public String[] TranslateServerResponse(String response)
+    public void TranslateServerResponse(String response)
     {
     	int memberCount = 0;
-    	String[] members;
+    	
     	for(int i = 0; i < response.length(); i++)
     	{
     		if(response.charAt(i) == ';')
@@ -114,7 +121,6 @@ public class ViewNote extends Activity {
     		}
     		members[i] = tempString.toString();	
     	}
-    	return members;
     }
     
     private class GetMembers extends AsyncTask<String,Void,String>
@@ -171,7 +177,8 @@ public class ViewNote extends Activity {
     	protected void onPostExecute(String result)
     	{
     		super.onPostExecute(result);
-    		populateList(TranslateServerResponse(result));
+    		TranslateServerResponse(result);
+    		populateList();
     	}
     }
 }

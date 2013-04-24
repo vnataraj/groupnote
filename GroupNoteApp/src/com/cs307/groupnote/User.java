@@ -91,8 +91,8 @@ public class User {
 	}
 	
 	public String setOtherName(String note) {
-		noteID = note;
-		return noteID;
+		otherName = note;
+		return otherName;
 	}
 	
 	public String getSessionCode() {

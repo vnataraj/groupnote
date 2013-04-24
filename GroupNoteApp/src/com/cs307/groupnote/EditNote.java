@@ -68,14 +68,6 @@ public class EditNote extends Activity {
         
     }
     
-    /*To Do Here
-     * Given Session ID and user ID download note
-     * save note when user leaves page
-     * Update sessionname textfield
-     * save note when refresh button is pressed
-     * navigate to NotesOverview Page when button is pressed (pass in session id and maintain user token)
-     * Know when page is being used for other users note, disable text box, the refresh button only downloads note, not saves changes. 
-     */
 
     private void populateTextBox(String note)
     {
@@ -102,8 +94,13 @@ public class EditNote extends Activity {
     		getRequest.append("http://groupnote.net78.net/editNote.php?note_id=");
     		getRequest.append(User.getUser().getNoteID());
     		getRequest.append("&content=");
-    		String input= params.toString();
-    		getRequest.append(input); //the note text
+    		//String input= params.toString();
+    		
+    		//getRequest.append(input); //the note text
+    		TextView noteView = (TextView)findViewById(R.id.notetext);
+    		String input = noteView.getText().toString();
+    		input = input.replace(' ','~');
+    		getRequest.append(input);
     		getRequest.append("&token=");
     		getRequest.append(User.getUser().getSessionCode());
     		
@@ -211,8 +208,17 @@ public class EditNote extends Activity {
 		{
 			if(users[i] == null)
 				break;
-			if(users[i].equals(User.getUser().getUsername()))
-				return notes[i];
+			User u = User.getUser();
+			if(User.getUser().getOtherNote())
+			{
+				if(users[i].equals(User.getUser().getOtherName()))
+					return notes[i];
+			}
+			else
+			{
+				if(users[i].equals(User.getUser().getUsername()))
+					return notes[i];
+			}
 		}
 		return "";
 	}
@@ -227,6 +233,7 @@ public class EditNote extends Activity {
     		StringBuilder getRequest = new StringBuilder();
 
     		getRequest.append("http://groupnote.net78.net/getSessionNotes.php?token=");
+
     		getRequest.append(User.getUser().getSessionCode());
     		getRequest.append("&session_id=");
     		getRequest.append(User.getUser().getCurrentSession());
@@ -307,8 +314,9 @@ public class EditNote extends Activity {
     				}
     			});
     		}
-    		
-    		return response.toString();
+    		String input = response.toString();
+    		input = input.replace('~',' ');
+    		return input;
     		//Convert response to byte[] or change the way the function works. 
     	}
     	
