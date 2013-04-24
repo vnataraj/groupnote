@@ -55,6 +55,15 @@ public class CreateSession extends Activity {
             			LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 		Criteria crit = new Criteria();
                 		Location location = lm.getLastKnownLocation(lm.getBestProvider(crit,true));
+                		
+                		if (location == null) {
+                			Toast toast = Toast.makeText(getApplicationContext(), "Cannot retrive your location. Check your settings or uncheck the location box to continue." , Toast.LENGTH_LONG);
+    	    	        	toast.show();
+    	    	        	toast = Toast.makeText(getApplicationContext(), "Session not created!" , Toast.LENGTH_SHORT);
+    	    	        	toast.show();
+    	    	        	return;
+                		}
+                		
                 		double longitude = location.getLongitude();
                 		double latitude = location.getLatitude();
             			userInfo[2] = Double.toString(latitude);
@@ -80,6 +89,7 @@ public class CreateSession extends Activity {
  		   
  		   StringBuilder response = new StringBuilder();
  		   StringBuilder getRequest = new StringBuilder();
+ 		   
  		   
  		   getRequest.append("http://groupnote.net78.net/newSession.php?token=");
  		   getRequest.append(User.getUser().getSessionCode()); //Append user token here

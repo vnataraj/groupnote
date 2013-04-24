@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class FindSession extends Activity {
 	String[] combined;
 	int classCount;
 	Dialog dialog;
+	EditText pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,7 @@ public class FindSession extends Activity {
 				dialog.setContentView(R.layout.password_prompt);
 				dialog.setTitle("Join session: " + splits[1]);
 	 
-				final EditText pass = (EditText) dialog.findViewById(R.id.editTextpass);
+				pass = (EditText) dialog.findViewById(R.id.editTextpass);
 				Button dialogButton = (Button) dialog.findViewById(R.id.joinsessionbut);
 				// if button is clicked, close the custom dialog
 				dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +210,7 @@ public class FindSession extends Activity {
     		   
     		   getRequest.append("http://groupnote.net78.net/getSessions.php?token=");
     		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
-    		   getRequest.append("&saved=");
+    		   getRequest.append("&saved=no");
     		   
     	        try {
     	        	HttpClient client = new DefaultHttpClient();  
@@ -296,12 +298,14 @@ public class FindSession extends Activity {
  	        Toast toast;
  	        
  	        if (result.trim().equals("-1")) {
- 	        	toast = Toast.makeText(getApplicationContext(), "Check 'Joined Sessions' to see if you are already a part of this session. If so, please enter the session there. If not, please reenter the correct password above." , Toast.LENGTH_LONG);
+ 	        	toast = Toast.makeText(getApplicationContext(), "You have entered the incorrect password. Please reenter the correct password above." , Toast.LENGTH_LONG);
  	        	toast.show();
  	        } else {
  	        	
  	        	toast = Toast.makeText(getApplicationContext(), "You have joined this session! Please go to 'Joined Sessions' and click this session to view the session." , Toast.LENGTH_LONG);
  	        	toast.show();
+ 	        	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+ 	        	imm.hideSoftInputFromWindow(pass.getWindowToken(), 0);
  	        	dialog.dismiss();
 
  	        	new NewNote().execute("");

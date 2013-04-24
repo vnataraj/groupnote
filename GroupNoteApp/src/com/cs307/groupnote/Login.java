@@ -191,7 +191,7 @@ public class Login extends Activity {
 	 	       super.onPostExecute(result);
 	 	       
 	 	       if (result.equals("-1")) {
-	 	    	   	Toast toast = Toast.makeText(getApplicationContext(), "New user creation encountered a problem. Please try again later." , Toast.LENGTH_SHORT);
+	 	    	   	Toast toast = Toast.makeText(getApplicationContext(), "New user creation encountered a problem. This username may already be in use." , Toast.LENGTH_LONG);
 	        		toast.show();
 	 	       } else {
 	 	    	   //User class creation and login take place here

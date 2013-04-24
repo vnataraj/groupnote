@@ -16,6 +16,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -61,9 +64,46 @@ public class JoinedSessions extends Activity {
     			User newuser = User.getUser();
 	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
 	 	    	newuser.setCurrentSessionName(splits[1]);
-    			
-    			Intent i = new Intent(getBaseContext(), EditNote.class);
-    			startActivity(i);
+	 	    	
+	 	    	if (Float.parseFloat(splits[2]) != 0 && Float.parseFloat(splits[3]) != 0) {
+	 	    		//Check location here
+	 	    		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+	 	    		Criteria crit = new Criteria();
+	 	    		Location location = lm.getLastKnownLocation(lm.getBestProvider(crit,true));
+        		
+	 	    		if (location == null) {
+	 	    			Toast toast = Toast.makeText(getApplicationContext(), "Cannot retrive your location. Check your settings to continue." , Toast.LENGTH_LONG);
+	 	    			toast.show();
+	 	    			toast = Toast.makeText(getApplicationContext(), "Location required for entry!" , Toast.LENGTH_SHORT);
+	 	    			toast.show();
+	 	    			return;
+	 	    		}
+	 	    	
+        		
+	 	    		double longitude = location.getLongitude();
+	 	    		double latitude = location.getLatitude();
+	 	    		
+	 	    		double longitudePlus = Float.parseFloat(splits[3]) + ((1.0/6.0) * Float.parseFloat(splits[4]));
+	 	    		double latitudePlus = Float.parseFloat(splits[2]) + ((1.0/6.0) * Float.parseFloat(splits[4]));
+	 	    		
+	 	    		double longitudeMinus = Float.parseFloat(splits[3]) - ((1.0/6.0) * Float.parseFloat(splits[4]));
+	 	    		double latitudeMinus = Float.parseFloat(splits[2]) - ((1.0/6.0) * Float.parseFloat(splits[4]));	
+	 	    		
+	 	    		/*Toast toast = Toast.makeText(getApplicationContext(), "(" + Double.toString(latitudeMinus) + "," + Double.toString(latitudePlus) + ") (" + Double.toString(longitudeMinus) + " , " + Double.toString(longitudePlus) + ")"  , Toast.LENGTH_LONG);
+ 	    			toast.show();*/
+	 	    		
+	 	    		if (longitude <= longitudePlus && longitude >= longitudeMinus && latitude <= latitudePlus && latitude >= latitudeMinus) {
+	 	    			//Do nothing for now. Functionality can be added later.
+	 	    		} else {
+	 	    			Toast toast = Toast.makeText(getApplicationContext(), "Sorry, you are not within the allowed distance of this group. Entry not granted." , Toast.LENGTH_LONG);
+	 	    			toast.show();
+	 	    			return;
+	 	    		}
+	 	    		
+	 	    	}
+	 	    	
+	 	    	Intent i = new Intent(getBaseContext(), EditNote.class);
+	    		startActivity(i);
     		}
     	}); 
     }
