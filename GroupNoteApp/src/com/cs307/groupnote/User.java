@@ -22,6 +22,8 @@ public class User {
 	private String noteID; //the note_id of the users current note 
 	private String currentSessionName; //the current session number the user is in
 	private Integer currentSession; //the current session number the user is in
+	private boolean otherNote;//if true then the user is looking at another users note, not their own. 
+	private String otherName;//the name of the notes owner the user is looking at if not looking at their own.
 	
 	private int refreshtime;
 	
@@ -73,6 +75,22 @@ public class User {
 	}
 	
 	public String setNoteID(String note) {
+		noteID = note;
+		return noteID;
+	}
+	public boolean getOtherNote() {
+		return otherNote;
+	}
+	
+	public boolean setOtherNote(boolean note) {
+		otherNote = note;
+		return otherNote;
+	}
+	public String getOtherName() {
+		return otherName;
+	}
+	
+	public String setOtherName(String note) {
 		noteID = note;
 		return noteID;
 	}

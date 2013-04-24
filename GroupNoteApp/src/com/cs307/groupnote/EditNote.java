@@ -42,10 +42,25 @@ public class EditNote extends Activity {
 				TextView noteView = (TextView)findViewById(R.id.notetext);
 				String NoteString = noteView.getText().toString();
 				//new SaveNote().execute(serializeObject(NoteString));
-				new SaveNote().execute(NoteString);
-				
+				if(User.getUser().getOtherNote() == false)
+					new SaveNote().execute(NoteString);
 			}
 		});
+        final Button zoomOutButton = (Button) findViewById(R.id.button1);
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(),ViewNote.class);
+				startActivity(i);
+			}
+		});
+        //if the user is looking at someone elses note then disable features
+        if(User.getUser().getOtherNote())
+        {
+        	TextView noteView = (TextView)findViewById(R.id.notetext);
+        	noteView.setEnabled(false);
+        	
+        }
+        
         
         new GetNote().execute("");
 
@@ -69,7 +84,11 @@ public class EditNote extends Activity {
         TextView sessionNameLabel = (TextView) findViewById(R.id.sessionnametext);
         sessionNameLabel.setText("Session: " +User.getUser().getCurrentSessionName());
         //sessionNameLabel.setText("NoteID: " +User.getUser().getNoteID());
-    	
+    	if(User.getUser().getOtherNote())
+    	{
+    		sessionNameLabel.setText("Session: " + User.getUser().getCurrentSessionName() + ": " + User.getUser().getOtherName());
+    		
+    	}
     }
    
     private class SaveNote extends AsyncTask<String,Void,String>
@@ -129,23 +148,7 @@ public class EditNote extends Activity {
     		}
     	}
     }
-    public byte[] serializeObject(Object o)
-    {
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	try
-    	{
-    		ObjectOutput out = new ObjectOutputStream(bos);
-    		out.writeObject(o);
-    		out.close();
-    		byte[] buf = bos.toByteArray();
-    		return buf;
-    	}
-    	catch(IOException ioe)
-    	{
-    		Log.e("serializeObject", "error",ioe);
-    	}
-    	return null;
-    }
+    /*
     public String deserializeObject(byte[] b)
     {
     	try
@@ -166,7 +169,7 @@ public class EditNote extends Activity {
     		return null;
     	}
     }
-
+*/
 	public String getNoteId(String response)
 	{
 		String[] notes;
@@ -176,7 +179,7 @@ public class EditNote extends Activity {
 		//break string into arrays of noteIDs and userIDs
 		for(int i = 0; i < response.length(); i++)
 		{
-			if(response.charAt(i) == ',') noteCount++;;
+			if(response.charAt(i) == ';') noteCount++;;
 		}
 		notes = new String[noteCount];
 		users = new String[noteCount];
@@ -188,19 +191,26 @@ public class EditNote extends Activity {
 			
 			char tempchar;
 			StringBuilder tempstring = new StringBuilder();
-			while((tempchar = response.charAt(counter++)) != ','){ //??OUT OF BOUNDS ERROR, HOW???
+			while((tempchar = response.charAt(counter++)) != ','){ 
 				tempstring.append(Character.toString(tempchar));
 			}
 			notes[i] = tempstring.toString();
 			
 			tempstring = new StringBuilder();
-			while(counter < (response.length()) &&(tempchar=response.charAt(counter++)) != ' ' ){
+			//while(counter < (response.length()) &&(tempchar=response.charAt(counter++)) != ' ' ){
+			while((tempchar=response.charAt(counter++)) != ';' ){
 				tempstring.append(Character.toString(tempchar));
+				if(counter >= response.length())
+					break;
 			}
 			users[i] = tempstring.toString();
+			if(counter >= response.length())
+				break;
 		}
 		for(int i = 0; i < noteCount; i++)
 		{
+			if(users[i] == null)
+				break;
 			if(users[i].equals(User.getUser().getUsername()))
 				return notes[i];
 		}
@@ -236,7 +246,10 @@ public class EditNote extends Activity {
     				String line;
     				while((line = r.readLine()) != null)
     				{
-    					response.append(line);
+    					if(line.equals(""))
+    						response.append(";");
+    					else
+    						response.append(line);	
     				}
     				
     			}
@@ -295,9 +308,8 @@ public class EditNote extends Activity {
     			});
     		}
     		
-    		byte[] data = Base64.decode(response.toString(), Base64.DEFAULT);
+    		return response.toString();
     		//Convert response to byte[] or change the way the function works. 
-    		return  deserializeObject(data);
     	}
     	
 
