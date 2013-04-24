@@ -148,7 +148,7 @@ public class EditNote extends Activity {
     		}
     	}
     }
-    
+    /*
     public String deserializeObject(byte[] b)
     {
     	try
@@ -169,7 +169,7 @@ public class EditNote extends Activity {
     		return null;
     	}
     }
-
+*/
 	public String getNoteId(String response)
 	{
 		String[] notes;
@@ -179,7 +179,7 @@ public class EditNote extends Activity {
 		//break string into arrays of noteIDs and userIDs
 		for(int i = 0; i < response.length(); i++)
 		{
-			if(response.charAt(i) == ',') noteCount++;;
+			if(response.charAt(i) == ';') noteCount++;;
 		}
 		notes = new String[noteCount];
 		users = new String[noteCount];
@@ -191,19 +191,26 @@ public class EditNote extends Activity {
 			
 			char tempchar;
 			StringBuilder tempstring = new StringBuilder();
-			while((tempchar = response.charAt(counter++)) != ','){ //??OUT OF BOUNDS ERROR, HOW???
+			while((tempchar = response.charAt(counter++)) != ','){ 
 				tempstring.append(Character.toString(tempchar));
 			}
 			notes[i] = tempstring.toString();
 			
 			tempstring = new StringBuilder();
-			while(counter < (response.length()) &&(tempchar=response.charAt(counter++)) != ' ' ){
+			//while(counter < (response.length()) &&(tempchar=response.charAt(counter++)) != ' ' ){
+			while((tempchar=response.charAt(counter++)) != ';' ){
 				tempstring.append(Character.toString(tempchar));
+				if(counter >= response.length())
+					break;
 			}
 			users[i] = tempstring.toString();
+			if(counter >= response.length())
+				break;
 		}
 		for(int i = 0; i < noteCount; i++)
 		{
+			if(users[i] == null)
+				break;
 			if(users[i].equals(User.getUser().getUsername()))
 				return notes[i];
 		}
@@ -239,7 +246,10 @@ public class EditNote extends Activity {
     				String line;
     				while((line = r.readLine()) != null)
     				{
-    					response.append(line);
+    					if(line.equals(""))
+    						response.append(";");
+    					else
+    						response.append(line);	
     				}
     				
     			}

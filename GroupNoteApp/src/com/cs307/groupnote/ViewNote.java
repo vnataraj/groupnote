@@ -89,7 +89,7 @@ public class ViewNote extends Activity {
     	String[] members;
     	for(int i = 0; i < response.length(); i++)
     	{
-    		if(response.charAt(i) == ',')
+    		if(response.charAt(i) == ';')
     			memberCount++;
     	}
     	members = new String[memberCount];
@@ -108,7 +108,7 @@ public class ViewNote extends Activity {
     		}
     		noteIds[i] = Integer.parseInt(tempString.toString());
     		tempString = new StringBuilder();
-    		while((tempChar=response.charAt(counter++)) != ' ')
+    		while((tempChar=response.charAt(counter++)) != ';')
     		{
     			tempString.append(Character.toString(tempChar));
     		}
@@ -144,7 +144,12 @@ public class ViewNote extends Activity {
     				String line;
     				while((line = r.readLine()) != null)
     				{
-    					response.append(line);
+    					if(line.equals(""))
+    						response.append(";");
+    					else
+    						response.append(line);
+    					
+
     				}
     			}
     			
