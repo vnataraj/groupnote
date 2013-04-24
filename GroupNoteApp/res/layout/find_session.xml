@@ -23,7 +23,7 @@
         android:layout_below="@+id/sessionnametext"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:text="filter..."
+        android:hint="filter..."
         android:textSize="35sp"
         android:inputType="textShortMessage" >
 

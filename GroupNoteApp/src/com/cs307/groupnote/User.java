@@ -1,4 +1,18 @@
 package com.cs307.groupnote;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.os.AsyncTask;
+import android.widget.Toast;
+
 public class User {
 	
 	private static User currentUser;
@@ -77,6 +91,8 @@ public class User {
 	}
 	
 	public int setRefreshTime(int refresh) {
+		new updateRefreshTime().execute(Integer.toString(refresh));
+		
 		refreshtime = refresh;
 		return refreshtime;
 	}
@@ -84,4 +100,33 @@ public class User {
 	public void logoutUser () {
 		currentUser = null;
 	}
+	
+	
+	private class updateRefreshTime extends AsyncTask<String, Void, Void> {
+    	
+ 	   @Override
+ 	   protected Void doInBackground(String... params) {
+ 		   	   
+ 		   StringBuilder getRequest = new StringBuilder();
+ 		   
+ 		   getRequest.append("http://groupnote.net78.net/setRefreshTime.php?token=");
+ 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here  <--------
+ 		   getRequest.append("&refresh_time=");
+ 		   getRequest.append(params[0]);
+ 		   
+ 	        try {
+ 	        	HttpClient client = new DefaultHttpClient();  
+ 	            URI getURL = new URI(getRequest.toString());
+ 	            HttpGet get = new HttpGet();
+ 	            get.setURI(getURL);
+ 	            HttpResponse responseGet = client.execute(get);  
+ 	        } 	    
+ 	        catch (Exception e) {
+ 	        	
+ 	        }
+ 	        
+ 	        return null;
+ 	   }
+ 	 
+ }
 }
