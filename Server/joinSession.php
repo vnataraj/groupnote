@@ -1,10 +1,11 @@
 <?php
 /*
-joinSession - Creates a new session
+joinSession - Adds a user to a session
 Params: Session number, password
-Returns: success (owner+name unique)
-         error (owner+name not unique)
-           */
+Returns: SUCCESS - User joined successfully
+         FAILURE - User was not able to be added
+*/
+
 include 'getUser.php';
   
 $token = $_GET["token"];
