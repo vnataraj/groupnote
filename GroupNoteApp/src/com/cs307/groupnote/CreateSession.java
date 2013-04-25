@@ -28,6 +28,7 @@ import android.content.Intent;
 
 public class CreateSession extends Activity {
 
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,12 +92,10 @@ public class CreateSession extends Activity {
  		   StringBuilder response = new StringBuilder();
  		   StringBuilder getRequest = new StringBuilder();
  		   
- 		   String sessionname = params[0][0].replace(" ", "+");
- 		   
  		   getRequest.append("http://groupnote.net78.net/newSession.php?token=");
  		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
  		   getRequest.append("&session_name=");
- 		   getRequest.append(sessionname); //Append session name here
+ 		   getRequest.append(params[0][0].replace(" ", "+")); //Append session name here
  		   getRequest.append("&passcode=");
  		   getRequest.append(params[0][1]); //Append session passcode here, optional.
  		   getRequest.append("&latitude=");
@@ -166,7 +165,7 @@ public class CreateSession extends Activity {
 	 		   getRequest.append("http://groupnote.net78.net/newNote.php?token=");
 	 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
 	 		   getRequest.append("&note_name=");
-	 		   getRequest.append(noteName); //Append session name here
+	 		   getRequest.append(noteName.replace(" ", "+")); //Append session name here
 	 		   getRequest.append("&session_id=");
 	 		   getRequest.append(User.getUser().getCurrentSession());
 	 		   

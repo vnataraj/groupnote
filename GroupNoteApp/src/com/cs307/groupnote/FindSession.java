@@ -330,7 +330,7 @@ public class FindSession extends Activity {
 	 		   getRequest.append("http://groupnote.net78.net/newNote.php?token=");
 	 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
 	 		   getRequest.append("&note_name=");
-	 		   getRequest.append(noteName); //Append session name here
+	 		   getRequest.append(noteName.replace(" ", "+")); //Append session name here
 	 		   getRequest.append("&session_id=");
 	 		   getRequest.append(User.getUser().getCurrentSession());
 	 		   
