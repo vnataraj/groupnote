@@ -62,10 +62,16 @@ public class EditNote extends Activity {
         }
         
         
-        new GetNote().execute("");
-
-
-        
+        new GetNote().execute("");    
+    }
+    
+    protected void onPause() {
+    	super.onPause();
+    	TextView noteView = (TextView)findViewById(R.id.notetext);
+		String NoteString = noteView.getText().toString();
+		//new SaveNote().execute(serializeObject(NoteString));
+		if(User.getUser().getOtherNote() == false)
+			new SaveNote().execute(NoteString);
     }
     
 
