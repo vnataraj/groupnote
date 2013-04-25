@@ -41,7 +41,7 @@ $query_tail = $query_tail . ")";
 
 //$query = "INSERT INTO sessions (name,passcode,latitude,longitude,radius) VALUES('$session_name','$passcode','$latitude','$longitude','$radius')";
 $query = $query_head . $query_tail;
-echo $query;
+//echo $query;
 
 /*if(strcmp($passcode,"")==0) {
   //echo "passcode null...inserting without<br>";
