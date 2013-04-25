@@ -141,6 +141,7 @@ public class CreateSession extends Activity {
 	    	   	Toast toast = Toast.makeText(getApplicationContext(), "New session creation encountered a problem. Please try again later." , Toast.LENGTH_SHORT);
 	    	   	toast.show();
 	       } else {
+	    	   User.getUser().setCurrentSession(Integer.parseInt(result));
 	    	   //create new note in that session
 	    	   new NewNote().execute("");
 	    	   //Start new note activity

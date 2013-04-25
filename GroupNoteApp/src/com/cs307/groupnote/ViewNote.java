@@ -132,7 +132,7 @@ public class ViewNote extends Activity {
     		StringBuilder getRequest = new StringBuilder();
     		
     		getRequest.append("http://groupnote.net78.net/getSessionNotes.php?token=");
-    		getRequest.append(User.getUser().getSessionCode());
+    		getRequest.append(User.getUser().getSessionCode()); 
     		getRequest.append("&session_id=");
     		getRequest.append(User.getUser().getCurrentSession());
     		

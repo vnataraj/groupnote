@@ -17,7 +17,7 @@ public class User {
 	
 	private static User currentUser;
 
-	private String username;
+	private String username; 
 	private String sessioncode;
 	private String noteID; //the note_id of the users current note 
 	private String currentSessionName; //the current session number the user is in
