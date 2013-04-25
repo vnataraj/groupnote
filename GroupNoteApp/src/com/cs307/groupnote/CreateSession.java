@@ -16,6 +16,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -90,11 +91,12 @@ public class CreateSession extends Activity {
  		   StringBuilder response = new StringBuilder();
  		   StringBuilder getRequest = new StringBuilder();
  		   
+ 		   String sessionname = params[0][0].replace(" ", "+");
  		   
  		   getRequest.append("http://groupnote.net78.net/newSession.php?token=");
  		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
  		   getRequest.append("&session_name=");
- 		   getRequest.append(params[0][0]); //Append session name here
+ 		   getRequest.append(sessionname); //Append session name here
  		   getRequest.append("&passcode=");
  		   getRequest.append(params[0][1]); //Append session passcode here, optional.
  		   getRequest.append("&latitude=");
@@ -141,6 +143,7 @@ public class CreateSession extends Activity {
 	    	   	Toast toast = Toast.makeText(getApplicationContext(), "New session creation encountered a problem. Please try again later." , Toast.LENGTH_SHORT);
 	    	   	toast.show();
 	       } else {
+	    	   User.getUser().setCurrentSession(Integer.parseInt(result));
 	    	   //create new note in that session
 	    	   new NewNote().execute("");
 	    	   //Start new note activity
@@ -166,6 +169,7 @@ public class CreateSession extends Activity {
 	 		   getRequest.append(noteName); //Append session name here
 	 		   getRequest.append("&session_id=");
 	 		   getRequest.append(User.getUser().getCurrentSession());
+	 		   
 	 		   
 	 	        try {
 	 	        	HttpClient client = new DefaultHttpClient();  

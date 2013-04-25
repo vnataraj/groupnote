@@ -42,9 +42,12 @@ public class Login extends Activity {
             	if (!User.alreadyLoggedIn()) { //User is not currently logged in, this prevents unnecessary server calls.
             		//Do server connection call here...
             		//Set user information
-            		
+
             		if (usernametext.getText().toString().trim().equals("")) {
             			Toast toast = Toast.makeText(getApplicationContext(), "A username is required!" , Toast.LENGTH_SHORT);
+    	    	        toast.show();
+            		} else if (usernametext.getText().toString().trim().contains(" ")) {
+            			Toast toast = Toast.makeText(getApplicationContext(), "The username may not contain spaces!" , Toast.LENGTH_SHORT);
     	    	        toast.show();
             		} else if (passwordtext.getText().toString().trim().equals("")) {
             			Toast toast = Toast.makeText(getApplicationContext(), "A password is required!" , Toast.LENGTH_SHORT);
