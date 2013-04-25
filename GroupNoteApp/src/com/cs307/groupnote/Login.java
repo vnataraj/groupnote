@@ -124,7 +124,7 @@ public class Login extends Activity {
 	 	   protected void onPostExecute(String result)  {
 	 	       super.onPostExecute(result);
 	 	       
-	 	       if (result.trim().isEmpty()) {
+	 	       if (result.trim().equals("-1")) {
 	 	    	   	Toast toast = Toast.makeText(getApplicationContext(), "Incorrect user name or password. Please try again." , Toast.LENGTH_SHORT);
    	        		toast.show();
 	 	       } else {

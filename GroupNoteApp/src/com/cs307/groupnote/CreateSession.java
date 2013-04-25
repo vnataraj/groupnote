@@ -149,58 +149,56 @@ public class CreateSession extends Activity {
 	       }
  	   }
  	   
- 	   private class NewNote extends AsyncTask<String,Void,String>
- 	   {
- 		   @Override
- 		   protected String doInBackground(String...params)
- 		   {
- 	 	        //Make a new note
- 			   
- 	 		   StringBuilder response = new StringBuilder();
- 	 		   StringBuilder getRequest = new StringBuilder();
- 	 		   
- 	 		   String noteName = User.getUser().getSessionCode() + "_" + User.getUser().getCurrentSessionName();
- 	 		   
- 	 		   getRequest.append("http://groupnote.net78.net/newNote.php?token=");
- 	 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
- 	 		   getRequest.append("&note_name=");
- 	 		   getRequest.append(noteName); //Append session name here
- 	 		   getRequest.append("&session_id=");
- 	 		   getRequest.append(User.getUser().getCurrentSession());
- 	 		   
- 	 	        try {
- 	 	        	HttpClient client = new DefaultHttpClient();  
- 	 	            URI getURL = new URI(getRequest.toString());
- 	 	            HttpGet get = new HttpGet();
- 	 	            get.setURI(getURL);
- 	 	            HttpResponse responseGet = client.execute(get);  
- 	 	            HttpEntity resEntityGet = responseGet.getEntity(); 
- 	 	            if (resEntityGet != null) { 
- 	 	            	BufferedReader r = new BufferedReader(new InputStreamReader(resEntityGet.getContent()));
- 	 	            	String line;
- 	 	            	while ((line = r.readLine()) != null) {
- 	 	            	    response.append(line);
- 	 	            	}
- 	 	            }
- 	 	        } 	    
- 	 	        catch (Exception e) {
- 	 	        	runOnUiThread(new Runnable() {
- 	 	                public void run() {
- 	 	    	        	Toast toast = Toast.makeText(getApplicationContext(), "Error connecting to server! Please try again." , Toast.LENGTH_SHORT);
- 	 	    	        	toast.show();
- 	 	                }
- 	 	        	});
- 	 	        }
- 			   return response.toString();
- 		   }
- 		   
- 		   @Override
- 		   protected void onPostExecute(String result)
- 		   {
- 			   super.onPostExecute(result);
- 			   User.getUser().setNoteID(result);
- 		   }
- 		   
+ 	   private class NewNote extends AsyncTask<String,Void,String> {
+ 			
+		   @Override
+		   protected String doInBackground(String...params) {
+	 	        //Make a new note
+			   
+	 		   StringBuilder response = new StringBuilder();
+	 		   StringBuilder getRequest = new StringBuilder();
+	 		   
+	 		   String noteName = User.getUser().getSessionCode() + "_" + User.getUser().getCurrentSessionName();
+	 		   
+	 		   getRequest.append("http://groupnote.net78.net/newNote.php?token=");
+	 		   getRequest.append(User.getUser().getSessionCode()); //Append user token here
+	 		   getRequest.append("&note_name=");
+	 		   getRequest.append(noteName); //Append session name here
+	 		   getRequest.append("&session_id=");
+	 		   getRequest.append(User.getUser().getCurrentSession());
+	 		   
+	 	        try {
+	 	        	HttpClient client = new DefaultHttpClient();  
+	 	            URI getURL = new URI(getRequest.toString());
+	 	            HttpGet get = new HttpGet();
+	 	            get.setURI(getURL);
+	 	            HttpResponse responseGet = client.execute(get);  
+	 	            HttpEntity resEntityGet = responseGet.getEntity(); 
+	 	            if (resEntityGet != null) { 
+	 	            	BufferedReader r = new BufferedReader(new InputStreamReader(resEntityGet.getContent()));
+	 	            	String line;
+	 	            	while ((line = r.readLine()) != null) {
+	 	            	    response.append(line);
+	 	            	}
+	 	            }
+	 	        } 	    
+	 	        catch (Exception e) {
+	 	        	runOnUiThread(new Runnable() {
+	 	                public void run() {
+	 	    	        	Toast toast = Toast.makeText(getApplicationContext(), "Error connecting to server! Please try again." , Toast.LENGTH_SHORT);
+	 	    	        	toast.show();
+	 	                }
+	 	        	});
+	 	        }
+			   return response.toString();
+		   }
+		   
+		   @Override
+		   protected void onPostExecute(String result)
+		   {
+			   super.onPostExecute(result);
+			   User.getUser().setNoteID(result);
+		   }
  	   }
  	 
  } 
