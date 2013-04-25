@@ -308,6 +308,7 @@ public class FindSession extends Activity {
  	        	imm.hideSoftInputFromWindow(pass.getWindowToken(), 0);
  	        	dialog.dismiss();
 
+ 	        	new PopulateFindSession().execute("");
  	        	new NewNote().execute("");
  	        }
  	   }
