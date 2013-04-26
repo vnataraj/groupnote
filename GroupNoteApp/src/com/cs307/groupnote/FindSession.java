@@ -35,6 +35,8 @@ import android.content.Intent;
 
 public class FindSession extends Activity {
 	
+	String[] classNames;
+	
 	String[] combined;
 	int classCount;
 	Dialog dialog;
@@ -79,38 +81,42 @@ public class FindSession extends Activity {
     public void filterListResults(String filter) {
     	
     	if (filter.equals("")) {
-    		populateList(combined);
+    		populateList(classNames);
+    	} else {
+    		
+    		String[] filteredNames = new String[classCount];
+    		String[] filteredInfo = new String[classCount];
+    		
+    		int counter = 0;
+        	
+        	for (int i = 0; i < classCount; i++) {
+        		if (combined[i].toLowerCase().contains(filter.toLowerCase())) {
+        			filteredNames[counter] = classNames[i];
+        			filteredInfo[counter++] = combined[i];
+        		}
+        	}
+        	
+        	String[] truncatedNames = new String[counter];
+    		String[] truncatedInfo = new String[counter];
+    		
+        	for (int i = 0; i < counter; i++) {
+        		truncatedNames[i] = filteredNames[i];
+        		truncatedInfo[i] = filteredInfo[i];
+        	}
+        	
+        	populateList(truncatedNames, truncatedInfo);
     	}
-    	
-    	String[] filtered = new String[classCount];
-    	
-    	int counter = 0;
-    	
-    	for (int i = 0; i < classCount; i++) {
-    		if (combined[i].toLowerCase().contains(filter.toLowerCase())) {
-    			filtered[counter++] = combined[i];
-    		}
-    	}
-    	
-    	//copy array to array of proper size
-    	
-    	String[] truncated = new String[counter];
-    	
-    	for (int i = 0; i < counter; i++) {
-    		truncated[i] = filtered[i];
-    	}
-    	
-    	populateList(truncated);
+  
     }
     
     
-    public void populateList(String[] classes) {
+    public void populateList(final String[] classes) {
     	// Find the ListView resource.   
     	ListView mainListView = (ListView) findViewById( R.id.listView1 );  
   
     	// Create and populate a List of class names.  
     	ArrayList<String> classList = new ArrayList<String>();  
-    	classList.addAll( Arrays.asList(classes) );
+    	classList.addAll( Arrays.asList(classNames) );
     
     	// Create ArrayAdapter using the class list.  
     	ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.listrow, classList);  
@@ -123,7 +129,7 @@ public class FindSession extends Activity {
     		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
     			// Perform action on click
     			
-    			String[] splits = adapter.getItemAtPosition(position).toString().split(", ");
+    			String[] splits = combined[position].split(", ");
     			
     			User newuser = User.getUser();
 	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
@@ -149,7 +155,52 @@ public class FindSession extends Activity {
     	});   
     }
     
- public String[] translateServerResponse(String response) {
+    public void populateList(final String[] classes, final String[] info) {
+    	// Find the ListView resource.   
+    	ListView mainListView = (ListView) findViewById( R.id.listView1 );  
+  
+    	// Create and populate a List of class names.  
+    	ArrayList<String> classList = new ArrayList<String>();  
+    	classList.addAll( Arrays.asList(classes) );
+    	
+    	// Create ArrayAdapter using the class list.  
+    	ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.listrow, classList);  
+    
+    	// Set the ArrayAdapter as the ListView's adapter.  
+    	mainListView.setAdapter( listAdapter );
+    	
+    	//Add click listener to list item
+    	mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+    			// Perform action on click
+    			
+    			String[] splits = info[position].split(", ");
+    			
+    			User newuser = User.getUser();
+	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
+	 	    	newuser.setCurrentSessionName(splits[1]);
+	 	    	
+	 	    	
+	 	    	
+	 	    	//Pop up password prompt dialog
+				dialog.setContentView(R.layout.password_prompt);
+				dialog.setTitle("Join session: " + splits[1]);
+	 
+				pass = (EditText) dialog.findViewById(R.id.editTextpass);
+				Button dialogButton = (Button) dialog.findViewById(R.id.joinsessionbut);
+				// if button is clicked, close the custom dialog
+				dialogButton.setOnClickListener(new View.OnClickListener() {
+		            public void onClick(View v) {
+		            	new CheckJoinSession().execute(pass.getText().toString());
+		            }
+				});
+	 
+				dialog.show();
+    		}
+    	});   
+    }
+    
+    public String[] translateServerResponse(String response) {
     	
     	classCount = 0;
     	String[] classes;
@@ -170,6 +221,7 @@ public class FindSession extends Activity {
      	classes = new String[classCount];
      	sectionId = new int[classCount];
      	combined = new String[classCount];
+     	classNames = new String[classCount];
      	
      	int counter = 0;
      	
@@ -193,6 +245,10 @@ public class FindSession extends Activity {
      		classes[i] = tempstring.toString();
      		
      		combined[i] = Integer.toString(sectionId[i]) + ", " + classes[i];
+     		
+     		String[] temp2 = classes[i].split(", ");
+     		
+     		classNames[i] = temp2[0];
      	}
      	
      	return combined;
@@ -261,7 +317,7 @@ public class FindSession extends Activity {
  		   getRequest.append("&session_id=");
  		   getRequest.append(User.getUser().getCurrentSession()); //Append user token here
 		   getRequest.append("&passcode=");
-		   getRequest.append(params[0].trim());
+		   getRequest.append(params[0].trim().replace(" ", "+"));
 		   
  	        try {
  	        	HttpClient client = new DefaultHttpClient();  
@@ -304,6 +360,8 @@ public class FindSession extends Activity {
  	        	
  	        	toast = Toast.makeText(getApplicationContext(), "You have joined this session! Please go to 'Joined Sessions' and click this session to view the session." , Toast.LENGTH_LONG);
  	        	toast.show();
+ 	        	final EditText et = (EditText) findViewById(R.id.notetext);
+ 	        	et.setText("");
  	        	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
  	        	imm.hideSoftInputFromWindow(pass.getWindowToken(), 0);
  	        	dialog.dismiss();

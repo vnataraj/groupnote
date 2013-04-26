@@ -31,6 +31,8 @@ import android.content.Context;
 import android.content.Intent;
 
 public class JoinedSessions extends Activity {
+	
+	String[] classNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,13 @@ public class JoinedSessions extends Activity {
     }
     
     
-    public void populateList(String[] classes) {
+    public void populateList(final String[] classes) {
     	// Find the ListView resource.   
     	ListView mainListView = (ListView) findViewById( R.id.listView1 );  
   
     	// Create and populate a List of class names.  
     	ArrayList<String> classList = new ArrayList<String>();  
-    	classList.addAll( Arrays.asList(classes) );
+    	classList.addAll( Arrays.asList(classNames) );
     
     	// Create ArrayAdapter using the class list.  
     	ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, R.layout.listrow, classList);  
@@ -59,7 +61,7 @@ public class JoinedSessions extends Activity {
     	mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     		public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
     			// Perform action on click
-    			String[] splits = adapter.getItemAtPosition(position).toString().split(", ");
+    			String[] splits = classes[position].split(", ");
     			
     			User newuser = User.getUser();
 	 	    	newuser.setCurrentSession(Integer.parseInt(splits[0]));
@@ -102,7 +104,7 @@ public class JoinedSessions extends Activity {
 	 	    		
 	 	    	}
 	 	    	
-	 	    	Intent i = new Intent(getBaseContext(), EditNote.class);
+	 	    	Intent i = new Intent(getBaseContext(), ViewNote.class);
 	    		startActivity(i);
     		}
     	}); 
@@ -131,6 +133,7 @@ public class JoinedSessions extends Activity {
      	classes = new String[classCount];
      	sectionId = new int[classCount];
      	combined = new String[classCount];
+     	classNames = new String[classCount];
      	
      	int counter = 0;
      	
@@ -154,6 +157,10 @@ public class JoinedSessions extends Activity {
      		classes[i] = tempstring.toString();
      		
      		combined[i] = Integer.toString(sectionId[i]) + ", " + classes[i];
+     		
+     		String[] temp2 = classes[i].split(", ");
+     		
+     		classNames[i] = temp2[0];
      	}
      	
      	return combined;

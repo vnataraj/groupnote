@@ -94,7 +94,7 @@ public class Login extends Activity {
 	 		   getRequest.append("http://groupnote.net78.net/login.php?username=");
 	 		   getRequest.append(params[0][0]); //Append user token here
 	 		   getRequest.append("&password=");
-	 		   getRequest.append(params[0][1]); //Append session name here
+	 		   getRequest.append(params[0][1].replace(" ", "+")); //Append session name here
 	 		   
 	 	        try {
 	 	        	HttpClient client = new DefaultHttpClient();  
@@ -141,6 +141,13 @@ public class Login extends Activity {
 	 	    	   Intent i = new Intent(getBaseContext(), MainActivity.class);
 	 	    	   startActivity(i);
 	 	    	   
+	 	    	   final EditText usernametext = (EditText) findViewById(R.id.usernametext);
+	 	    	   usernametext.setText("");
+	 	    	   final EditText passwordtext = (EditText) findViewById(R.id.loginpasscodetext);
+	 	    	   passwordtext.setText("");
+	 	    	   final CheckBox newUserBox = (CheckBox) findViewById(R.id.checkBox2);
+	 	    	   newUserBox.setChecked(false);
+	 	    	   
 	 	    	   Toast toast = Toast.makeText(getApplicationContext(), ("Welcome back, " + usernameTemp + "!") , Toast.LENGTH_SHORT);
 	        	   toast.show();
 	 	       }
@@ -160,7 +167,7 @@ public class Login extends Activity {
 	 		   getRequest.append("http://groupnote.net78.net/newUser.php?username=");
 	 		   getRequest.append(params[0][0]); //Append user token here
 	 		   getRequest.append("&password=");
-	 		   getRequest.append(params[0][1]); //Append session name here
+	 		   getRequest.append(params[0][1].replace(" ", "+")); //Append session name here
 	 		   
 	 	        try {
 	 	        	HttpClient client = new DefaultHttpClient();  
@@ -205,6 +212,13 @@ public class Login extends Activity {
     		
 	 	    	   Intent i = new Intent(getBaseContext(), MainActivity.class);
 	 	    	   startActivity(i);
+	 	    	   
+	 	    	   final EditText usernametext = (EditText) findViewById(R.id.usernametext);
+	 	    	   usernametext.setText("");
+	 	    	   final EditText passwordtext = (EditText) findViewById(R.id.loginpasscodetext);
+	 	    	   passwordtext.setText("");
+	 	    	   final CheckBox newUserBox = (CheckBox) findViewById(R.id.checkBox2);
+	 	    	   newUserBox.setChecked(false);
 	 	    	   
 	 	    	   Toast toast = Toast.makeText(getApplicationContext(), ("Welcome new user, " + usernameTemp + "!") , Toast.LENGTH_SHORT);
 	        	   toast.show();

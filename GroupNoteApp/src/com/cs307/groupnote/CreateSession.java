@@ -97,7 +97,7 @@ public class CreateSession extends Activity {
  		   getRequest.append("&session_name=");
  		   getRequest.append(params[0][0].replace(" ", "+")); //Append session name here
  		   getRequest.append("&passcode=");
- 		   getRequest.append(params[0][1]); //Append session passcode here, optional.
+ 		   getRequest.append(params[0][1].replace(" ", "+")); //Append session passcode here, optional.
  		   getRequest.append("&latitude=");
 		   getRequest.append(params[0][2]); //Append session latitude here, optional.
 		   getRequest.append("&longitude=");
@@ -148,6 +148,12 @@ public class CreateSession extends Activity {
 	    	   //Start new note activity
 	    	   Intent i = new Intent(getBaseContext(), EditNote.class);
 	    	   startActivity(i);
+	    	   final EditText sessionnametext = (EditText) findViewById(R.id.notetext);
+	    	   final EditText passcodetext = (EditText) findViewById(R.id.passcodetext);
+	    	   final CheckBox checkbox = (CheckBox) findViewById(R.id.CheckBox01);
+	    	   sessionnametext.setText("");
+	    	   passcodetext.setText("");
+	    	   checkbox.setChecked(false);
 	       }
  	   }
  	   
