@@ -31,6 +31,7 @@ public class Login extends Activity {
         setContentView(R.layout.login);
         
         final EditText usernametext = (EditText) findViewById(R.id.usernametext);
+        usernametext.requestFocus();
     	final EditText passwordtext = (EditText) findViewById(R.id.loginpasscodetext);
     	final CheckBox newUserBox = (CheckBox) findViewById(R.id.checkBox2);
         
@@ -143,6 +144,7 @@ public class Login extends Activity {
 	 	    	   
 	 	    	   final EditText usernametext = (EditText) findViewById(R.id.usernametext);
 	 	    	   usernametext.setText("");
+	 	    	   usernametext.requestFocus();
 	 	    	   final EditText passwordtext = (EditText) findViewById(R.id.loginpasscodetext);
 	 	    	   passwordtext.setText("");
 	 	    	   final CheckBox newUserBox = (CheckBox) findViewById(R.id.checkBox2);
@@ -215,6 +217,7 @@ public class Login extends Activity {
 	 	    	   
 	 	    	   final EditText usernametext = (EditText) findViewById(R.id.usernametext);
 	 	    	   usernametext.setText("");
+	 	    	   usernametext.requestFocus();
 	 	    	   final EditText passwordtext = (EditText) findViewById(R.id.loginpasscodetext);
 	 	    	   passwordtext.setText("");
 	 	    	   final CheckBox newUserBox = (CheckBox) findViewById(R.id.checkBox2);
